@@ -1,0 +1,271 @@
+syntax = "proto2";
+
+package PFPSimDebugger;
+
+message DebugMsg {
+
+  enum Type {
+    Run = 1;
+    Next = 2;
+    GetCounter = 3;
+    GetAllCounters = 4;
+    CounterValue = 5;
+    AllCounterValues = 6;
+    SetBreakpoint = 7;
+    BreakpointHit = 8;
+    Continue = 9;
+    GenericAcknowledge = 10;
+    GetAllBreakpoints = 11;
+    AllBreakpointValues = 12;
+    RemoveBreakpoint = 13;
+    WhoAmI = 14;
+    WhoAmIReply = 15;
+    GetPacketList = 16;
+    PacketListValues = 17;
+    SetWatchpoint = 18;
+    WatchpointHit = 19;
+    GetAllWatchpoints = 20;
+    AllWatchpointValues = 21;
+    RemoveWatchpoint = 22;
+    Backtrace = 23;
+    BacktraceReply = 24;
+    SimulationEnd = 25;
+    EnableDisableBreakpoint = 26;
+    EnableDisableWatchpoint = 27;
+    SimulationStopped = 28;
+    IgnoreModule = 29;
+    GetAllIgnoreModules = 30;
+    AllIgnoreModules = 31;
+    GetSimulationTime = 32;
+    SimulationTime = 33;
+    BreakOnPacketDrop = 34;
+    PacketDropped = 35;
+    GetDroppedPackets = 36;
+    DroppedPackets = 37;
+    CPCommand = 38;
+    GetTableEntries = 41;
+    TableEntries = 42;
+  }
+
+  required Type type = 1;
+  required bytes message = 2;
+}
+
+enum BreakpointCondition {
+  BREAK_ON_MODULE_READ = 1;
+  BREAK_ON_MODULE_WRITE = 2;
+  BREAK_AT_TIME = 3;
+  BREAK_ON_PACKET_ID = 4;
+}
+
+/// =============================================
+//
+//  Request Messages from Python PFPSimDebugger
+//
+/// ==============================================
+
+message RunMsg {
+  optional string time_ns = 1;
+}
+
+message GetCounterMsg {
+  optional string name = 1;
+}
+
+message GetAllCountersMsg {}
+
+message SetBreakpointMsg {
+  repeated BreakpointCondition condition_list = 1;
+  repeated string value_list = 2;
+  optional string temporary = 3;  // 1 = true, 0 = false
+  optional string disabled = 4;  // 1 = true, 0 = false
+}
+
+message ContinueMsg {
+  optional string time_ns = 1;
+}
+
+message GetAllBreakpointsMsg {}
+
+message RemoveBreakpointMsg {
+  optional string id = 1;
+}
+
+message WhoAmIMsg {}
+
+message NextMsg {}
+
+message GetPacketListMsg {
+  optional string module = 1;
+}
+
+message SetWatchpointMsg {
+  optional string counter_name = 1;
+  optional string disabled = 2;  // 1 = true, 0 = false
+}
+
+message GetAllWatchpointsMsg {}
+
+message RemoveWatchpointMsg {
+  optional string id = 1;
+}
+
+message BacktraceMsg {
+  optional string packet_id = 1;
+}
+
+message EnableDisableBreakpointMsg {
+  optional string id = 1;
+  optional string enable = 2;  // 1 = enable, 0 = disable
+}
+
+message EnableDisableWatchpointMsg {
+  optional string id = 1;
+  optional string enable = 2;  // 1 = enable, 0 = disable
+}
+
+message IgnoreModuleMsg {
+  optional string module = 1;
+  optional bool delete = 2; // true = delete ignore on module
+}
+
+message GetAllIgnoreModulesMsg {}
+
+message GetSimulationTimeMsg {}
+
+message BreakOnPacketDropMsg {
+  optional bool on = 1; // true = will break, false = no break
+}
+
+message GetDroppedPacketsMsg {}
+
+// Control Plane Messages
+
+message CPCommandMsg {
+  optional string command = 1;
+}
+
+message GetTableEntriesMsg {}
+
+/// ================================================
+//
+//  Reply Messages from C++ DebugObserver
+//
+/// ================================================
+
+message CounterValueMsg {
+  optional string name = 1;
+  optional int32 value = 2;
+}
+
+message AllCounterValuesMsg {
+  repeated string name_list = 1;
+  repeated int32 value_list = 2 [packed=true];
+}
+
+message BreakpointHitMsg {
+  optional int32 id = 1;
+  optional string module = 2;
+  optional int32 packet_id = 3;
+  optional double time_ns = 4;
+  optional string read = 5;  // "1" = read, "0" = write
+}
+
+message GenericAcknowledgeMsg {
+  enum Status {
+    SUCCESS = 1;
+    FAILED = 2;
+  }
+  optional Status status = 1;
+}
+
+message AllBreakpointValuesMsg {
+  message BreakpointConditionList {
+    repeated BreakpointCondition condition_list = 1;
+    repeated string value_list = 2;
+  }
+  repeated int32 id_list = 1 [packed=true];
+  repeated BreakpointConditionList breakpoint_condition_list = 2;
+  repeated string temporary = 3;  // 1 = true, 0 = false
+  repeated string disabled = 4;  // 1 = true, 0 = false
+}
+
+message WhoAmIReplyMsg {
+  optional int32 packet_id = 1;
+}
+
+message PacketListValuesMsg {
+  repeated int32 id_list = 1 [packed=true];
+  repeated string location_list = 2;
+  repeated double time_list = 3 [packed=true];
+}
+
+message WatchpointHitMsg {
+  optional string counter_name = 1;
+  optional int32 old_value = 2;
+  optional int32 new_value = 3;
+  optional int32 id = 4;
+}
+
+message AllWatchpointValuesMsg {
+  repeated int32 id_list = 1 [packed=true];
+  repeated string name_list = 2;
+  repeated string disabled = 3;  // 1 = true, 0 = false
+}
+
+message BacktraceReplyMsg {
+  repeated string module_list = 1;
+  repeated double read_time_list = 2 [packed=true];
+  repeated double write_time_list = 3 [packed=true];
+  optional int32 packet_id = 4;
+}
+
+message SimulationEndMsg {}
+
+message SimulationStoppedMsg {
+  optional string module = 1;
+  optional int32 packet_id = 2;
+  optional double time = 3;
+  optional bool read = 4;  // true = read, false = write
+}
+
+message AllIgnoreModulesMsg {
+  repeated string module_list = 1;
+}
+
+message SimulationTimeMsg {
+  optional double time_ns = 1;
+}
+
+message PacketDroppedMsg {
+  optional int32 packet_id = 1;
+  optional string module = 2;
+  optional string reason = 3;
+}
+
+message DroppedPacketsMsg {
+  repeated int32 packet_id_list = 1;
+  repeated string module_list = 2;
+  repeated string reason_list = 3;
+}
+
+// Control Plane Messages
+
+message TableEntriesMsg {
+  enum TableEntryStatus {
+    OK = 1;
+    INSERTING = 2;
+    DELETING = 3;
+    MODIFYING = 4;
+    NONE = 5;
+  }
+  message TableEntry {
+    optional string table_name = 1;
+    repeated string match_key_list = 2;
+    optional string action_name = 3;
+    repeated string action_data_list = 4;
+    optional uint64 handle = 5;
+    optional TableEntryStatus status = 6;
+  }
+  repeated TableEntry entry_list = 1;
+}

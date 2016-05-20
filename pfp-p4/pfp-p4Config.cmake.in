@@ -1,0 +1,43 @@
+#
+# PFPSim: Library for the Programmable Forwarding Plane Simulation Framework
+#
+# Copyright (C) 2016 Concordia Univ., Montreal
+#     Samar Abdi
+#     Umair Aftab
+#     Gordon Bailey
+#     Faras Dewal
+#     Shafigh Parsazad
+#     Eric Tremblay
+#
+# Copyright (C) 2016 Ericsson
+#     Bochra Boughzala
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
+#
+
+# - Config file for the PFP_P4 package
+# It defines the following variables
+# PFP_P4_INCLUDE_DIRS - include directories for PFP_P4
+# PFP_P4_LIBRARIES    - libraries to link against
+# calculate paths
+find_library(LIBJUDY Judy REQUIRED)
+find_library(LIBBOOST_SYSTEM boost_system            REQUIRED)
+find_library(LIBBOOST_PRGOPT boost_program_options   REQUIRED)
+find_library(LIBBOOST_THREAD boost_thread            REQUIRED)
+find_library(LIBBOOSTFILESYS boost_filesystem        REQUIRED)
+
+set(PFP_P4_INCLUDE_DIRS "@CONF_INCLUDE_DIRS@/pfpsim/pfp-p4")
+set(PFP_P4_LIBRARIES "pfp-p4 ${LIBJUDY} ${LIBBOOST_SYSTEM} ${LIBBOOST_PRGOPT} ${LIBBOOST_THREAD} ${LIBBOOSTFILESYS}")

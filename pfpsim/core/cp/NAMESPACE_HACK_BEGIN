@@ -1,0 +1,29 @@
+// The purpose of this file is to work around the limitation that bisonc++ and
+// flexc++ will only generate a single namespace, but we want our parser to
+// live in a nested namespace. To get around this, we are using the following:
+
+#define pfp_cp pfp { namespace cp
+
+// This changes the single namespace declaration into a declaration of two
+// nested namespaces. Of course this comes with many problems, not least of
+// which is that it makes the code using this hack a little confusing.
+//
+// Because this generates an additional opening-brace, we have a sister file
+// called NAMESPACE_HACK_END. This file includes a single closing-brace, as
+// well as a macro which un-defines the name pfp_cp to avoid polluting the
+// macro namespace with this bizarre define.
+//
+// Because headers files may be included multiple times with include-guards,
+// we sometimes have to wrap our entire usage of this hack in the include-
+// guard of the hacked file. You can see this in CommandParser.h and in
+// CommandScanner.h
+//
+// Finally in order to wrap the actual cpp file, we've changed its extension
+// to .ipp, and then created a cpp file which simply includes that .ipp file
+// surrounded by this hack. In that special case, we've added a macro called
+// NAMESPACE_HACK_DONTCLEAN which disables the #undef previously described
+// in NAMESPACE_HACK_END. This is because otherwise #includes within the
+// .ipp file would clean the #define when it is still needed, and we don't
+// care about polluting the macro namespace inside that particular cpp file.
+//
+//   author: Gordon Bailey | gb at gordonbailey dot net

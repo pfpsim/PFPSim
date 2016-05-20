@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+# Make sure we have inputs
+([ -z "$1" ] || [ -z "$2" ]) && echo "usage $0 <library> <include>" && exit 1
+
+# These are the static libraries that we need
+p4libs=(libbmi.a libbmsim.a libbflpmtrie.a)
+
+# And this one, which is a third party library
+libs=libjson.a
+
+# These are the include directories we need
+includes=(bf_lpm_trie bm_sim jsoncpp spdlog)
+
+libname=$1
+include_dir=$2
+
+# Make the directory structure that we want
+mkdir -p $include_dir
+
+
+mri_script="create $libname"
+# Function to find a library and copy it into a given folder
+function add_lib_to_MRI_script {
+  mri_script="$mri_script\naddlib $(find . -name $1)"
+}
+
+function cp_include {
+  cp -r $(find . -name $1 | grep --color=never include) $include_dir/
+}
+
+# Copy all the p4 libs to the P4 folder
+for file in "${p4libs[@]}"
+do
+  echo $file
+  add_lib_to_MRI_script $file
+done
+
+# Copy the other (third-party) libs to the root lib folder
+for file in $libs
+do
+  echo $file
+  add_lib_to_MRI_script $file
+done
+
+# Copy the includes
+for file in "${includes[@]}"
+do
+  echo $file
+  cp_include $file
+done
+
+mri_script="$mri_script\nsave\nend\n"
+echo -e $mri_script
+echo -e $mri_script | ar -M

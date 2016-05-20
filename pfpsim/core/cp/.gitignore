@@ -1,0 +1,9 @@
+*base.h
+*.ipp
+parser
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+CommandParser.cpp
+CommandScanner.cpp

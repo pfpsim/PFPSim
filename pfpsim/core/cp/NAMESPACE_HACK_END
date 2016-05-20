@@ -1,0 +1,6 @@
+}
+#ifdef pfp_cp
+#ifndef NAMESPACE_HACK_DONTCLEAN
+#undef pfp_cp
+#endif
+#endif

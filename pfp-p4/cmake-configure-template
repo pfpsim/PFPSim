@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# If Josh Kalderimis has approved this enviroment, then we must
+# be running inside Travis! Quick, install P4 dependencies!!
+if [[ "$HAS_JOSH_K_SEAL_OF_APPROVAL" == "true" ]]
+then
+  ./install_deps.sh
+fi
+
+extra_flags=""
+set_cxx=""
+if [[ "@CONF_CXX@" =~ .*clang.* ]]
+then
+  extra_flags="-stdlib=libstdc++"
+  set_cxx="clang++"
+elif [[ "@CONF_CXX@" =~ .*gcc.* ]]; then
+  # do nothing because P4 is hardcoding to g++
+  set_cxx="g++"
+fi
+
+./autogen.sh
+# TODO(gordon) be smarter about `-O0 and -ggdb`
+CXXFLAGS="$CXXFLAGS -DBMLOG_DEBUG_ON -DBMLOG_TRACE_ON -ggdb -O0 $extra_flags" CXX="$set_cxx" \
+  ./configure --enable-debugger

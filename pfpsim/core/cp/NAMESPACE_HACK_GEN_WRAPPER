@@ -1,0 +1,7 @@
+#!/bin/sh
+
+echo "#define NAMESPACE_HACK_DONTCLEAN"
+echo "#include \"NAMESPACE_HACK_BEGIN\""
+echo "#include \"$1.ipp\""
+echo "#include \"NAMESPACE_HACK_END\""
+

@@ -1,0 +1,21 @@
+interface qr, qw;
+
+CE queue implements qw, qr;
+
+PE reader {
+  qr input;
+};
+
+PE writer {
+  qw output;
+};
+
+PE top {
+  reader r;
+  writer w;
+  queue  q;
+
+  bind r.input {q};
+  bind w.output {q};
+
+};

@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+extra=""
+
+if [ "$1" == "vg" ]
+then
+  extra="valgrind --leak-check=full --track-origins=yes"
+fi
+
+
+(
+  ### All of the entries from table.txt which we had been previously using ###
+  echo "insert_entry ipv4_lpm 10.0.0.0/8 set_nhop 10.0.1.1    1"
+  echo "insert_entry ipv4_lpm 10.0.1.2/32 set_nhop 10.0.1.2   2"
+
+  echo "insert_entry forward 10.0.1.1 set_dmac FF:FF:FF:FF:FF:01"
+  echo "insert_entry forward 10.0.1.2 set_dmac BB:BB:BB:BB:BB:01"
+
+  echo "insert_entry send_frame 1'2 rewrite_mac AA:AA:AA:AA:AA:01"
+  echo "insert_entry send_frame 2'2 rewrite_mac AA:AA:AA:AA:AA:02"
+
+  echo "insert_entry tcp_rewrite_dst 10000'2 rewrite_tcp_dst 12358"
+
+  echo "insert_entry tcp_rewrite_src 10000'2 rewrite_tcp_dst 12358"
+
+  ### Modify entries ###
+  echo "modify_entry ipv4_lpm 2 set_nhop 34.56.78.90 100"
+
+  ### Delete Entries ###
+  echo "delete_entry huge_table 18446744073709551615" # probably to make room for more :P
+
+  # Blank line
+  echo
+
+  # Comment lines
+  echo "# no leading space"
+  echo "    # leading space"
+
+  ### Now featuring ternary! ###
+  echo "insert_entry ternary_table 192.168.0.1&ff:ff:0f:00 some_action 456"
+
+  # Resizing numbers
+  echo "insert_entry a 1'1 foo"
+  echo "insert_entry a 1'2 foo"
+  echo "insert_entry a 1'3 foo"
+  echo "insert_entry a 1'4 foo"
+  echo "insert_entry a 1'5 foo"
+  echo "insert_entry a 1'6 foo"
+  echo "insert_entry a 1'7 foo"
+  echo "insert_entry a 1'8 foo"
+  echo "insert_entry a 1'9 foo"
+  echo "insert_entry a 1'10 foo"
+  echo "insert_entry a 1'12 foo"
+  echo "insert_entry a 1'13 foo"
+  echo "insert_entry a 1'14 foo"
+  echo "insert_entry a 1'15 foo"
+  echo "insert_entry a 1'16 foo"
+  echo "insert_entry a 1'17 foo"
+
+) | $extra ./parser
