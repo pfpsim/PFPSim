@@ -94,12 +94,234 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 </ul>
 </div>
-<div class="textblock"><h1><a class="anchor" id="intro_sec"></a>
-Introduction</h1>
-<p>// TODO</p>
-<h1><a class="anchor" id="install_sec"></a>
-Installation</h1>
-<p>// TODO </p>
+<div class="textblock">
+
+<div id="readme" class="readme boxed-group clearfix announce instapaper_body md">
+    <h3>
+      <svg aria-hidden="true" class="octicon octicon-book" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M2 5h4v1H2v-1z m0 3h4v-1H2v1z m0 2h4v-1H2v1z m11-5H9v1h4v-1z m0 2H9v1h4v-1z m0 2H9v1h4v-1z m2-6v9c0 0.55-0.45 1-1 1H8.5l-1 1-1-1H1c-0.55 0-1-0.45-1-1V3c0-0.55 0.45-1 1-1h5.5l1 1 1-1h5.5c0.55 0 1 0.45 1 1z m-8 0.5l-0.5-0.5H1v9h6V3.5z m7-0.5H8.5l-0.5 0.5v8.5h6V3z"></path></svg>
+      README.md
+    </h3>
+
+      <article class="markdown-body entry-content" itemprop="text"><h1><a id="user-content-pfpsim-" class="anchor" href="#pfpsim-" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>PFPSim <a href="https://travis-ci.org/pfpsim/PFPSim"><img src="https://camo.githubusercontent.com/21c08781bd37285e8ef14b0e7dd7a42b9dbba711/68747470733a2f2f7472617669732d63692e6f72672f70667073696d2f50465053696d2e7376673f6272616e63683d6d6173746572" alt="Build Status" data-canonical-src="https://travis-ci.org/pfpsim/PFPSim.svg?branch=master" style="max-width:100%;"></a></h1>
+
+<p>This repository contains the core PFPSim library of common utilities, base classes, and SystemC support infrastructure which PFPSim-based projects depend on. Additionally, it links to
+a fork of <a href="http://p4.org">P4, an emerging programming language for packet processing applications</a>, which can be
+used to program the applications that run on PFPSim models.</p>
+
+<p>The PFPSim methodology and workflow is
+<a href="https://github.com/pfpsim/pfpgen#pfpsim-methodology--workflow">described in detail here</a>.</p>
+
+<h3><a id="user-content-contents" class="anchor" href="#contents" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Contents</h3>
+
+<ul>
+<li><a href="#installation">Installation</a>
+
+<ul>
+<li><a href="#using-the-pfpsim-gui-installer">Using the PFPSim GUI Installer</a></li>
+<li><a href="#using-prebuilt-package">Using Prebuilt Package</a></li>
+<li><a href="#building-from-source">Building from Source</a>
+
+<ul>
+<li><a href="#dependencies">Dependencies</a></li>
+<li><a href="#building">Building</a></li>
+<li><a href="#installing">Installing</a></li>
+<li><a href="#building-package">Building Package</a></li>
+<li><a href="#building-api-docs">Building API Docs</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#running-tests">Running Tests</a></li>
+<li><a href="#support">Support</a></li>
+<li><a href="#contributing">Contributing</a></li>
+<li><a href="#license">License</a></li>
+<li><a href="#authors">Authors</a></li>
+</ul>
+
+<h1><a id="user-content-installation" class="anchor" href="#installation" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Installation</h1>
+
+<h2><a id="user-content-using-the-pfpsim-gui-installer" class="anchor" href="#using-the-pfpsim-gui-installer" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Using the PFPSim GUI Installer</h2>
+
+<p>We provide <a href="https://github.com/pfpsim/pfpsim-installer">a text-based GUI installer</a>
+for the PFPSim library, compiler, debugger, and required dependencies. This is
+the recommended method for installing this library.</p>
+
+<h2><a id="user-content-using-prebuilt-package" class="anchor" href="#using-prebuilt-package" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Using Prebuilt Package</h2>
+
+<p>We provide pre-built deb packages on <a href="https://github.com/pfpsim/PFPSim/releases">our releases page</a>. These packages
+contain both the PFPSim core library, and the PFP P4 fork. They can be installed on Debian-based distributions using</p>
+
+<pre><code>sudo dpkg -i pfpsim-X.Y.Z-Linux-COMPILER.deb
+</code></pre>
+
+<p>Currently our automated releases upload packages tagged with the name of the compiler used to build them.
+Both the <code>clang (clang++)</code> and <code>g (g++)</code> packages are built against <code>libstdc++-4.8</code> and both should work
+regardless of which compiler you use, but we have not tested this extensively.</p>
+
+<p>To use the installed library, it's still necessary to install most of the <a href="#dependencies">dependencies mentioned below</a>.
+The build-time dependencies (flexc++, bisonc++, protobuf-compiler) are no longer needed, but all the rest are.</p>
+
+<h2><a id="user-content-building-from-source" class="anchor" href="#building-from-source" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Building from Source</h2>
+
+<h3><a id="user-content-dependencies" class="anchor" href="#dependencies" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Dependencies</h3>
+
+<p>You will need CMake and a C++11 compliant compiler to build PFPSim. More information about CMake and build systems
+that we like and how to install them
+<a href="https://github.com/pfpsim/PFPSim/wiki/Build-managment-%5BCMAKE-Make-Ninja%5D">can be found on our wiki</a>.</p>
+
+<p>The following required dependencies can be installed using <code>apt-get</code> under Debian or Ubuntu:</p>
+
+<ul>
+<li>libprotobuf-dev</li>
+<li>bisonc++</li>
+<li>flexc++</li>
+<li>protobuf-compiler</li>
+</ul>
+
+<p>Additionally SystemC and nanomsg must be installed from source:</p>
+
+<p>Due to SystemC's licensing terms, it must be downloaded manually. Download it from
+<a href="http://accellera.org/downloads/standards/systemc">this page</a>. Follow the link for "SystemC 2.3.1 (Includes TLM) |  Core SystemC Language and Examples".</p>
+
+<p>Once you have the archive downloaded, SystemC can be built and installed as follows:</p>
+
+<div class="highlight highlight-source-shell"><pre>tar -xzf systemc-2.3.1.tgz
+<span class="pl-c1">cd</span> systemc-2.3.1
+./configure --prefix=/usr --with-unix-layout
+make
+sudo make install</pre></div>
+
+<p>Next we need to install <a href="http://nanomsg.org/">nanomsg</a>. It can be downloaded, built and installed as follows</p>
+
+<div class="highlight highlight-source-shell"><pre>wget http://download.nanomsg.org/nanomsg-0.5-beta.tar.gz
+tar -xzf nanomsg-0.5-beta.tar.gz
+<span class="pl-c1">cd</span> nanomsg-0.5-beta
+./configure
+make
+sudo make install</pre></div>
+
+<p>If you also plan on installing the P4 library, there are some additional required dependencies. More information
+is available <a href="https://github.com/pfpsim/p4-behavioral-model#dependencies">in the <code>p4-behavioral-model</code> repository</a>.</p>
+
+<h3><a id="user-content-building" class="anchor" href="#building" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Building</h3>
+
+<p>Once all of the dependencies are installed, building from source is straightforward.</p>
+
+<pre><code>git clone https://github.com/pfpsim/PFPSim.git
+mkdir PFPSim/build
+cd PFPSim/build
+cmake ..
+make
+</code></pre>
+
+<p>By default, both the PFPSim Core library, and the PFPSim P4 fork are built. To select which components to build, the
+following flags may be passed to cmake:</p>
+
+<ul>
+<li><code>-DPFPSIMCORE=ON</code> or <code>-DPFPSIMCORE=OFF</code> to enable or disable building PFPSim core</li>
+<li><code>-DPFP-P4=ON</code> or <code>-DPFP-P4=OFF</code> to enable or disable building the PFPSim P4 fork</li>
+</ul>
+
+<h3><a id="user-content-installing" class="anchor" href="#installing" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Installing</h3>
+
+<p>Once the project is built, it can be installed with <code>sudo make install</code>. In order to selectively install
+components, they should be enabled or disabled during the build step as specified above.</p>
+
+<h3><a id="user-content-building-package" class="anchor" href="#building-package" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Building Package</h3>
+
+<p><a href="https://cmake.org/Wiki/CMake:Packaging_With_CPack">CPack</a> is used to generated various source/pre-built
+packages which make it possible to install PFPSim without building from source.</p>
+
+<p>Once the project is built, packages can be generated with <code>make package</code>. Because we use Travis CI to
+automate building and deploying releases, the version number of the generated package is controlled
+by the <code>TRAVIS_TAG</code> environment variable. If you wish to build a package with a specific version number,
+then in the build step above, replace the <code>cmake</code> command with <code>TRAVIS_TAG=vX.Y.Z cmake ..</code> where X.Y.Z
+is your desired version number.</p>
+
+<h3><a id="user-content-building-api-docs" class="anchor" href="#building-api-docs" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Building API Docs</h3>
+
+<p>We use <a href="http://www.stack.nl/%7Edimitri/doxygen/">doxygen</a> to generate API docs. The following dependencies
+can be installed from <code>apt-get</code></p>
+
+<ul>
+<li>doxygen</li>
+<li>graphviz</li>
+</ul>
+
+<p>Then docs can be built with <code>make doc</code></p>
+
+<h1><a id="user-content-running-tests" class="anchor" href="#running-tests" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Running Tests</h1>
+
+<p>To validate your installation, we provide a very simple test project. It can be built as follows:</p>
+
+<div class="highlight highlight-source-shell"><pre><span class="pl-c1">cd</span> tests/simple-pfp/simple/
+mkdir build
+<span class="pl-c1">cd</span> build
+cmake ../src
+make</pre></div>
+
+<p>Running the simulation model with <code>./simple-sim -v debug</code> should then produce the following output:</p>
+
+<pre><code>        SystemC 2.3.1-Accellera --- Feb 17 2016 16:19:54
+        Copyright (c) 1996-2014 by all Contributors,
+        ALL RIGHTS RESERVED
+config root is: ./Configs/
+Verbostiy Level is: debug
+Output dir is: ./
+0.000 ns @  Got: 0
+10.000 ns @  Got: 1
+20.000 ns @  Got: 2
+30.000 ns @  Got: 3
+40.000 ns @  Got: 4
+50.000 ns @  Got: 5
+60.000 ns @  Got: 6
+70.000 ns @  Got: 7
+80.000 ns @  Got: 8
+90.000 ns @  Got: 9
+</code></pre>
+
+<h1><a id="user-content-support" class="anchor" href="#support" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Support</h1>
+
+<p>If you need help using the PFPSim Framework, please
+<a href="mailto:pfpsim.help@gmail.com">send us an email at <code>pfpsim.help@gmail.com</code></a> - we'd be happy to hear from you!</p>
+
+<p>If you think you've found a bug, or would like to request a new feature,
+<a href="https://github.com/pfpsim/PFPSim/issues">please open an issue using github</a> - we're always trying to improve PFPSim!</p>
+
+<h1><a id="user-content-contributing" class="anchor" href="#contributing" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Contributing</h1>
+
+<p>If you'd like to contribute code back to PFPSim, please fork this github repository and send us a pull request!
+Please make sure that your contribution passes our <a href="https://travis-ci.org/pfpsim/PFPSim">continuous integration build</a>.</p>
+
+<p>Any contribution to the C++ core code must respect the coding guidelines as stated on the wiki. We rely heavily on the
+Google C++ Style Guide, with some differences listed in this repository's wiki. Our Travis builds include running
+<a href="https://github.com/google/styleguide/tree/gh-pages/cpplint"><code>cpplint</code></a> to ensure correct style and formatting.</p>
+
+<h1><a id="user-content-license" class="anchor" href="#license" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>License</h1>
+
+<p>This project is licensed under the GPLv2 - see <a href="/pfpsim/PFPSim/blob/gh-pages/LICENSE">LICENSE</a> for details</p>
+
+<h1><a id="user-content-authors" class="anchor" href="#authors" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Authors</h1>
+
+<p>Copyright (C) 2016 Concordia Univ., Montreal</p>
+
+<ul>
+<li>Samar Abdi</li>
+<li>Umair Aftab</li>
+<li>Gordon Bailey</li>
+<li>Faras Dewal</li>
+<li>Shafigh Parsazad</li>
+<li>Eric Tremblay</li>
+</ul>
+
+<p>Copyright (C) 2016 Ericsson</p>
+
+<ul>
+<li>Bochra Boughzala</li>
+</ul>
+</article>
+  </div>
+
+
+
 <h2><a class="anchor" id="dependencies"></a>
 Dependencies</h2>
 <ul>
