@@ -1,0 +1,5 @@
+<map id="pfp::core::db::DebuggerIPCServer::setReplyMessage" name="pfp::core::db::DebuggerIPCServer::setReplyMessage">
+<area shape="rect" id="node2" href="$classpfp_1_1core_1_1db_1_1DebugObserver.html#a3af473908c24bb877ad2e1b6083e174b" title="Destructor. " alt="" coords="283,5,484,47"/>
+<area shape="rect" id="node3" href="$classpfp_1_1core_1_1db_1_1DebugObserver.html#a35f3c0c7e02efc144fca3b8352e82002" title="Function called by the simulation when a counter is updated. " alt="" coords="283,71,484,112"/>
+<area shape="rect" id="node4" href="$classpfp_1_1core_1_1db_1_1DebugObserver.html#ac627c4500d9edf6bdde07d85ef2aae65" title="Function called by the simulation when data is dropped in a module. " alt="" coords="283,136,484,177"/>
+</map>

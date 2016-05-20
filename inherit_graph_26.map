@@ -1,0 +1,7 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classpfp_1_1cp_1_1CommandResult.html" title="pfp::cp::CommandResult" alt="" coords="5,81,177,108"/>
+<area shape="rect" id="node2" href="$classpfp_1_1cp_1_1DeleteResult.html" title="pfp::cp::DeleteResult" alt="" coords="226,5,375,32"/>
+<area shape="rect" id="node3" href="$classpfp_1_1cp_1_1FailedResult.html" title="pfp::cp::FailedResult" alt="" coords="227,56,374,83"/>
+<area shape="rect" id="node4" href="$classpfp_1_1cp_1_1InsertResult.html" title="pfp::cp::InsertResult" alt="" coords="229,107,373,133"/>
+<area shape="rect" id="node5" href="$classpfp_1_1cp_1_1ModifyResult.html" title="pfp::cp::ModifyResult" alt="" coords="225,157,376,184"/>
+</map>

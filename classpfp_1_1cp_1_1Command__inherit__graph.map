@@ -1,0 +1,6 @@
+<map id="pfp::cp::Command" name="pfp::cp::Command">
+<area shape="rect" id="node3" href="$classpfp_1_1cp_1_1BootCompleteCommand.html" title="{pfp::cp::BootCompleteCommand\n||+ print()\l+ OVERRIDE_PROCESS()\l+ ~BootCompleteCommand()\l}" alt="" coords="5,381,228,487"/>
+<area shape="rect" id="node4" href="$classpfp_1_1cp_1_1DeleteCommand.html" title="{pfp::cp::DeleteCommand\n||+ print()\l+ OVERRIDE_PROCESS()\l+ set_handle()\l+ get_handle()\l+ ~DeleteCommand()\l+ success_result()\l}" alt="" coords="253,359,445,509"/>
+<area shape="rect" id="node5" href="$classpfp_1_1cp_1_1InsertCommand.html" title="{pfp::cp::InsertCommand\n||+ print()\l+ OVERRIDE_PROCESS()\l+ set_match_keys()\l+ set_action()\l+ ~InsertCommand()\l+ get_keys()\l+ get_action()\l+ success_result()\l}" alt="" coords="469,344,661,524"/>
+<area shape="rect" id="node6" href="$classpfp_1_1cp_1_1ModifyCommand.html" title="{pfp::cp::ModifyCommand\n||+ print()\l+ OVERRIDE_PROCESS()\l+ set_handle()\l+ get_handle()\l+ set_action()\l+ get_action()\l+ ~ModifyCommand()\l+ success_result()\l}" alt="" coords="685,344,877,524"/>
+</map>

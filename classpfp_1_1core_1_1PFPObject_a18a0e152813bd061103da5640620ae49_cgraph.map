@@ -1,0 +1,6 @@
+<map id="pfp::core::PFPObject::remove_counter" name="pfp::core::PFPObject::remove_counter">
+<area shape="rect" id="node2" href="$classpfp_1_1core_1_1PFPObject.html#a6a70ae0eb4e9e61f010bad08deb1b184" title="Get the number of counters in the PFPObject. " alt="" coords="217,5,365,47"/>
+<area shape="rect" id="node3" href="$classpfp_1_1core_1_1PFPObject.html#ac8a70a449f6774597968f0b33d0594b4" title="Notify all attached observers when a counter is removed from the PFPObject. " alt="" coords="201,71,381,112"/>
+<area shape="rect" id="node4" href="$classpfp_1_1core_1_1PFPObserver.html#a2281daf8c9923c7159963245aafd6789" title="Function called by the NPU when a counter is removed from a module. " alt="" coords="429,41,596,83"/>
+<area shape="rect" id="node5" href="$classMTQueue.html#a1b8d763529ae9eb53bce1c09f8f82507" title="Push an item onto the MTQueue. " alt="" coords="453,107,573,134"/>
+</map>

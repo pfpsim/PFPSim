@@ -1,0 +1,19 @@
+<map id="pfp::core::db::DebuggerMessage" name="pfp::core::db::DebuggerMessage">
+<area shape="rect" id="node2" href="$classpfp_1_1core_1_1db_1_1AllBreakpointValuesMessage.html" title="Message which returns the list of all breakpoints. " alt="" coords="5,189,233,281"/>
+<area shape="rect" id="node3" href="$classpfp_1_1core_1_1db_1_1AllCounterValuesMessage.html" title="Message which returns the value of all the counters. " alt="" coords="258,189,469,281"/>
+<area shape="rect" id="node4" href="$classpfp_1_1core_1_1db_1_1AllIgnoreModulesMessage.html" title="Message which returns the list of all the modules that are being ignored. " alt="" coords="492,189,704,281"/>
+<area shape="rect" id="node5" href="$classpfp_1_1core_1_1db_1_1AllWatchpointValuesMessage.html" title="Message which returns the list of all the watchpoints. " alt="" coords="728,189,959,281"/>
+<area shape="rect" id="node6" href="$classpfp_1_1core_1_1db_1_1BacktraceReplyMessage.html" title="Message which returns the backtrace of a packet. " alt="" coords="983,189,1186,281"/>
+<area shape="rect" id="node7" href="$classpfp_1_1core_1_1db_1_1BreakpointHitMessage.html" title="Message which indicates that a breakpoint has been hit. " alt="" coords="1211,189,1399,281"/>
+<area shape="rect" id="node8" href="$classpfp_1_1core_1_1db_1_1CounterValueMessage.html" title="Message which returns the value of a counter. " alt="" coords="1423,189,1611,281"/>
+<area shape="rect" id="node9" href="$classpfp_1_1core_1_1db_1_1DroppedPacketsMessage.html" title="Message which returns the list of all dropped packets. " alt="" coords="1635,189,1843,281"/>
+<area shape="rect" id="node10" href="$classpfp_1_1core_1_1db_1_1GenericAcknowledgeMessage.html" title="Message which is sent to indicate that a request was successful or not when the debugger isn&#39;t expect..." alt="" coords="1867,189,2105,281"/>
+<area shape="rect" id="node11" href="$classpfp_1_1core_1_1db_1_1PacketDroppedMessage.html" title="Message which indicates that a packet has been dropped. " alt="" coords="2129,189,2331,281"/>
+<area shape="rect" id="node12" href="$classpfp_1_1core_1_1db_1_1PacketListValuesMessage.html" title="Message which returns the list of all the packets currently within the simulation. " alt="" coords="2355,189,2566,281"/>
+<area shape="rect" id="node13" href="$classpfp_1_1core_1_1db_1_1SimulationEndMessage.html" title="Message which indicates that the simulation has ended. " alt="" coords="2590,189,2782,281"/>
+<area shape="rect" id="node14" href="$classpfp_1_1core_1_1db_1_1SimulationStoppedMessage.html" title="Message which indicates that the simulation has stopped. " alt="" coords="2807,189,3027,281"/>
+<area shape="rect" id="node15" href="$classpfp_1_1core_1_1db_1_1SimulationTimeMessage.html" title="Message which returns the current simulation time. " alt="" coords="3051,189,3249,281"/>
+<area shape="rect" id="node16" href="$classpfp_1_1core_1_1db_1_1TableEntriesMessage.html" title="Message which returns the list of all the table entries in all of the tables. " alt="" coords="3273,189,3456,281"/>
+<area shape="rect" id="node17" href="$classpfp_1_1core_1_1db_1_1WatchpointHitMessage.html" title="Message which indicates that a watchpoint has been hit. " alt="" coords="3480,189,3671,281"/>
+<area shape="rect" id="node18" href="$classpfp_1_1core_1_1db_1_1WhoAmIReplyMessage.html" title="Message which returns the ID of the packet which is current being followed. " alt="" coords="3695,189,3887,281"/>
+</map>

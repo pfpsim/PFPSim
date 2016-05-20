@@ -1,0 +1,8 @@
+<map id="pfp::core::db::DebugObserver::data_written" name="pfp::core::db::DebugObserver::data_written">
+<area shape="rect" id="node2" href="$classpfp_1_1core_1_1db_1_1DebugDataManager.html#aa59e25a018d39d224d580ebdbcd85255" title="Add a new packet or update an existing one. " alt="" coords="276,104,449,145"/>
+<area shape="rect" id="node7" href="$classpfp_1_1core_1_1db_1_1DebugDataManager.html#a82d394d7fc4f0159c10422283e0d99c6" title="Check if the given module is being ignored. " alt="" coords="255,169,471,211"/>
+<area shape="rect" id="node3" href="$classpfp_1_1core_1_1db_1_1DebuggerPacket.html#a2c2828ba58aa35c87cb7075ca260294b" title="Set the current time of the packet. " alt="" coords="519,5,725,47"/>
+<area shape="rect" id="node4" href="$classpfp_1_1core_1_1db_1_1DebuggerPacket.html#ab6bbc1ea6b78add2c88f089b595a059c" title="Set the current location of the packet. " alt="" coords="519,71,725,112"/>
+<area shape="rect" id="node5" href="$classpfp_1_1core_1_1db_1_1DebuggerPacket.html#a39ed8b29b2560595e17ab66f2d32fcee" title="Update the time at which the packet entered a module. " alt="" coords="519,136,725,177"/>
+<area shape="rect" id="node6" href="$classpfp_1_1core_1_1db_1_1DebuggerPacket.html#a890ca341604503c739dcffe9d9f6e89d" title="Update the time at which the packet left a module. " alt="" coords="519,201,725,243"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="pfp::core::db::DebugObserver::counter_updated" name="pfp::core::db::DebugObserver::counter_updated">
+<area shape="rect" id="node2" href="$classpfp_1_1core_1_1db_1_1DebugDataManager.html#a69b2ba1bab0096faad5f2c6b1d263a8c" title="Get the value of a counter. " alt="" coords="274,5,465,47"/>
+<area shape="rect" id="node3" href="$classpfp_1_1core_1_1db_1_1DebugDataManager.html#a5fd70c4c422bda4ce380e0a37a11f01f" title="Update the value of a counter. " alt="" coords="280,71,459,112"/>
+<area shape="rect" id="node4" href="$classpfp_1_1core_1_1db_1_1DebugDataManager.html#a2023ae8a6638064ad4954cab3de6256a" title="Get list of Watchpoints. " alt="" coords="270,136,469,177"/>
+<area shape="rect" id="node5" href="$classpfp_1_1core_1_1db_1_1DebuggerIPCServer.html#ab689790660a5111bdfbee8a296fdd9ea" title="Set the message that will be send to pfpdb the next time the simulation is halted. " alt="" coords="255,201,484,243"/>
+</map>

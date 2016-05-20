@@ -1,0 +1,5 @@
+<map id="nlohmann::basic_json::is_string" name="nlohmann::basic_json::is_string">
+<area shape="rect" id="node2" href="$classnlohmann_1_1basic__json.html#adcd6086bac286854d5cc8b7f84d74a49" title="return whether type is primitive " alt="" coords="209,5,365,47"/>
+<area shape="rect" id="node3" href="$classnlohmann_1_1basic__json.html#a45e789042a23138eba2b69f34df9fc45" title="remove element given an iterator " alt="" coords="209,71,365,112"/>
+<area shape="rect" id="node4" href="$classnlohmann_1_1basic__json.html#a86089c703a2e563b9f760c2f8408efa7" title="exchanges the values " alt="" coords="209,136,365,177"/>
+</map>

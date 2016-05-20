@@ -1,0 +1,7 @@
+<map id="/home/lemniscate/workspace/PFPSim/pfpsim/core/debugger/DebuggerPacket.h" name="/home/lemniscate/workspace/PFPSim/pfpsim/core/debugger/DebuggerPacket.h">
+<area shape="rect" id="node2" href="$DebugDataManager_8h.html" title="Defines class which stores any data about taht simulation that is required by pfpdb. " alt="" coords="56,109,271,165"/>
+<area shape="rect" id="node4" href="$DebugObserver_8h.html" title="Observer for simulation which maintains a record of the simulation via the DebugDataManager so that t..." alt="" coords="151,317,365,373"/>
+<area shape="rect" id="node3" href="$DebuggerIPCServer_8h.html" title="Defines class that services requests from pfpdb. " alt="" coords="5,213,220,269"/>
+<area shape="rect" id="node5" href="$DebuggerUtilities_8h_source.html" title="/home/lemniscate/workspace\l/PFPSim/pfpsim/core/DebuggerUtilities.h" alt="" coords="121,421,395,463"/>
+<area shape="rect" id="node6" href="$pfpsim_8h_source.html" title="/home/lemniscate/workspace\l/PFPSim/pfpsim/pfpsim.h" alt="" coords="156,511,360,552"/>
+</map>

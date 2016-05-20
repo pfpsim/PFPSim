@@ -1,0 +1,5 @@
+<map id="/home/lemniscate/workspace/PFPSim/pfpsim/core/debugger/DebuggerMessages.h" name="/home/lemniscate/workspace/PFPSim/pfpsim/core/debugger/DebuggerMessages.h">
+<area shape="rect" id="node6" href="$Breakpoint_8h.html" title="Defines a class representation of a breakpoint. " alt="" coords="202,109,303,136"/>
+<area shape="rect" id="node8" href="$Watchpoint_8h.html" title="Defines a class representation of a watchpoint for the debugger. " alt="" coords="23,109,127,136"/>
+<area shape="rect" id="node9" href="$CPDebuggerInterface_8h.html" title="Defines an interface to be implemented by Control Plane modules for compatibility with the debugger..." alt="" coords="328,109,497,136"/>
+</map>

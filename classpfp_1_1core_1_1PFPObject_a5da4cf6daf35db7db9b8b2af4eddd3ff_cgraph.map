@@ -1,0 +1,4 @@
+<map id="pfp::core::PFPObject::notify_data_read" name="pfp::core::PFPObject::notify_data_read">
+<area shape="rect" id="node2" href="$classpfp_1_1core_1_1PFPObserver.html#ab5f65bc105aaffb0d8e5b3499b6f1bdf" title="Function called by the NPU when data is read by a module. " alt="" coords="201,5,368,47"/>
+<area shape="rect" id="node3" href="$classMTQueue.html#a1b8d763529ae9eb53bce1c09f8f82507" title="Push an item onto the MTQueue. " alt="" coords="225,71,345,98"/>
+</map>

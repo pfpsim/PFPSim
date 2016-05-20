@@ -1,0 +1,3 @@
+<map id="pfp::core::db::DebugObserver" name="pfp::core::db::DebugObserver">
+<area shape="rect" id="node2" href="$classpfp_1_1core_1_1PFPObserver.html" title="{pfp::core::PFPObserver\n||+ counter_added()\l+ counter_removed()\l+ counter_updated()\l+ data_written()\l+ data_read()\l+ data_dropped()\l+ thread_begin()\l+ thread_end()\l+ thread_idle()\l+ core_busy()\l+ core_idle()\l# ~PFPObserver()\l}" alt="" coords="23,5,189,244"/>
+</map>

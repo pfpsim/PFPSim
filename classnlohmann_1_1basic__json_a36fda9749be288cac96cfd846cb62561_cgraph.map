@@ -1,0 +1,4 @@
+<map id="nlohmann::basic_json::rend" name="nlohmann::basic_json::rend">
+<area shape="rect" id="node2" href="$classnlohmann_1_1basic__json.html#aa7084e62b93ef0236698b246a58bb2da" title="returns a const reverse iterator to one before the first " alt="" coords="209,5,365,47"/>
+<area shape="rect" id="node3" href="$classnlohmann_1_1basic__json.html#a7355a41b0033ff8a27d58550544d5a59" title="returns a const iterator to the first element " alt="" coords="413,5,569,47"/>
+</map>

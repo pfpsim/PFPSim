@@ -1,0 +1,6 @@
+<map id="pfp::cp::CommandResult" name="pfp::cp::CommandResult">
+<area shape="rect" id="node2" href="$classpfp_1_1cp_1_1DeleteResult.html" title="{pfp::cp::DeleteResult\n||+ ~DeleteResult()\l+ OVERRIDE_PROCESS()\l}" alt="" coords="5,167,197,259"/>
+<area shape="rect" id="node3" href="$classpfp_1_1cp_1_1FailedResult.html" title="{pfp::cp::FailedResult\n|+ message\l|+ ~FailedResult()\l+ OVERRIDE_PROCESS()\l}" alt="" coords="221,167,413,259"/>
+<area shape="rect" id="node4" href="$classpfp_1_1cp_1_1InsertResult.html" title="{pfp::cp::InsertResult\n|+ handle\l|+ ~InsertResult()\l+ OVERRIDE_PROCESS()\l+ InsertResult()\l}" alt="" coords="437,160,629,267"/>
+<area shape="rect" id="node5" href="$classpfp_1_1cp_1_1ModifyResult.html" title="{pfp::cp::ModifyResult\n||+ ~ModifyResult()\l+ OVERRIDE_PROCESS()\l}" alt="" coords="653,167,845,259"/>
+</map>

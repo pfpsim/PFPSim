@@ -1,0 +1,11 @@
+<map id="/home/lemniscate/workspace/PFPSim/pfpsim/core/debugger/DebugObserver.h" name="/home/lemniscate/workspace/PFPSim/pfpsim/core/debugger/DebugObserver.h">
+<area shape="rect" id="node4" href="$TrType_8h_source.html" title="../TrType.h" alt="" coords="259,259,348,285"/>
+<area shape="rect" id="node6" href="$PFPObserver_8h.html" title="PFPObserver.h. " alt="" coords="5,109,132,136"/>
+<area shape="rect" id="node8" href="$DebuggerIPCServer_8h.html" title="Defines class that services requests from pfpdb. " alt="" coords="751,109,909,136"/>
+<area shape="rect" id="node20" href="$DebugDataManager_8h.html" title="Defines class which stores any data about taht simulation that is required by pfpdb. " alt="" coords="1411,184,1571,211"/>
+<area shape="rect" id="node22" href="$DebuggerPacket_8h.html" title="Defines a class representation of a packet in the debugger context. " alt="" coords="1567,259,1704,285"/>
+<area shape="rect" id="node14" href="$DebuggerMessages_8h.html" title="Defines the message objects that can be sent as replies to pfpdb through the DebuggerIPCServer. " alt="" coords="583,184,741,211"/>
+<area shape="rect" id="node19" href="$CPDebuggerInterface_8h.html" title="Defines an interface to be implemented by Control Plane modules for compatibility with the debugger..." alt="" coords="1011,259,1180,285"/>
+<area shape="rect" id="node17" href="$Breakpoint_8h.html" title="Defines a class representation of a breakpoint. " alt="" coords="885,259,986,285"/>
+<area shape="rect" id="node18" href="$Watchpoint_8h.html" title="Defines a class representation of a watchpoint for the debugger. " alt="" coords="706,259,810,285"/>
+</map>

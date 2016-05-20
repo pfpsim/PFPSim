@@ -1,0 +1,5 @@
+<map id="/home/lemniscate/workspace/PFPSim/pfpsim/core/debugger/DebugDataManager.h" name="/home/lemniscate/workspace/PFPSim/pfpsim/core/debugger/DebugDataManager.h">
+<area shape="rect" id="node8" href="$Breakpoint_8h.html" title="Defines a class representation of a breakpoint. " alt="" coords="267,109,368,136"/>
+<area shape="rect" id="node9" href="$Watchpoint_8h.html" title="Defines a class representation of a watchpoint for the debugger. " alt="" coords="139,109,243,136"/>
+<area shape="rect" id="node10" href="$DebuggerPacket_8h.html" title="Defines a class representation of a packet in the debugger context. " alt="" coords="443,109,581,136"/>
+</map>

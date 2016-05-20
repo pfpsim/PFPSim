@@ -1,0 +1,6 @@
+<map id="pfp::core::db::DebugDataManager::updatePacket" name="pfp::core::db::DebugDataManager::updatePacket">
+<area shape="rect" id="node2" href="$classpfp_1_1core_1_1db_1_1DebuggerPacket.html#a2c2828ba58aa35c87cb7075ca260294b" title="Set the current time of the packet. " alt="" coords="227,5,433,47"/>
+<area shape="rect" id="node3" href="$classpfp_1_1core_1_1db_1_1DebuggerPacket.html#ab6bbc1ea6b78add2c88f089b595a059c" title="Set the current location of the packet. " alt="" coords="227,71,433,112"/>
+<area shape="rect" id="node4" href="$classpfp_1_1core_1_1db_1_1DebuggerPacket.html#a39ed8b29b2560595e17ab66f2d32fcee" title="Update the time at which the packet entered a module. " alt="" coords="227,136,433,177"/>
+<area shape="rect" id="node5" href="$classpfp_1_1core_1_1db_1_1DebuggerPacket.html#a890ca341604503c739dcffe9d9f6e89d" title="Update the time at which the packet left a module. " alt="" coords="227,201,433,243"/>
+</map>

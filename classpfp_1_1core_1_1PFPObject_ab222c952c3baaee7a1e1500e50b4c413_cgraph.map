@@ -1,0 +1,5 @@
+<map id="pfp::core::PFPObject::increment_counter" name="pfp::core::PFPObject::increment_counter">
+<area shape="rect" id="node2" href="$classpfp_1_1core_1_1PFPObject.html#a04e6dd971750758a0706c6a73fd77021" title="Notify all attached observers when a counter is changed. " alt="" coords="201,35,381,76"/>
+<area shape="rect" id="node3" href="$classpfp_1_1core_1_1PFPObserver.html#a5c3e36359e94a116b57ff36dbd9d481a" title="Function called by the NPU when a counter is updated. " alt="" coords="429,5,596,47"/>
+<area shape="rect" id="node4" href="$classMTQueue.html#a1b8d763529ae9eb53bce1c09f8f82507" title="Push an item onto the MTQueue. " alt="" coords="453,71,573,98"/>
+</map>

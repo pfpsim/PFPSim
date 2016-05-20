@@ -1,0 +1,4 @@
+<map id="nlohmann::basic_json::is_number_integer" name="nlohmann::basic_json::is_number_integer">
+<area shape="rect" id="node2" href="$classnlohmann_1_1basic__json.html#a957eb9594c7f0ca93212c30f3a400873" title="return whether value is a number " alt="" coords="209,5,365,47"/>
+<area shape="rect" id="node3" href="$classnlohmann_1_1basic__json.html#adcd6086bac286854d5cc8b7f84d74a49" title="return whether type is primitive " alt="" coords="413,5,569,47"/>
+</map>

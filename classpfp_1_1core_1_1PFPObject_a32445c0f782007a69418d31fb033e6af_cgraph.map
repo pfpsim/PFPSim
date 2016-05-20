@@ -1,0 +1,4 @@
+<map id="pfp::core::PFPObject::notify_data_written" name="pfp::core::PFPObject::notify_data_written">
+<area shape="rect" id="node2" href="$classpfp_1_1core_1_1PFPObserver.html#a1e0602e55896dd67f62216dc49eb1496" title="Function called by the NPU when data is written by a module. " alt="" coords="201,5,368,47"/>
+<area shape="rect" id="node3" href="$classMTQueue.html#a1b8d763529ae9eb53bce1c09f8f82507" title="Push an item onto the MTQueue. " alt="" coords="225,71,345,98"/>
+</map>

@@ -1,0 +1,75 @@
+sudo: required
+
+language: cpp
+
+branches:
+    except:
+        - gh-pages
+compiler:
+  - clang
+  - gcc
+
+# N.B. - The P4 cmake configure step under Travis will install all of its dependencies,
+# some of which overlap with our dependencies. Notably:
+#   - nanomsg
+#   - nnpy
+#   - libpcap
+before_install:
+  # Before anything else, lint it to make sure everything's good
+  - sudo pip install cpplint
+  - .travis/run_lint.sh
+  # Copy pasted from https://github.com/jdm64/saphyr/blob/8808c34dec4f94f86a8dd6a832037cba4ba2d88a/.travis.yml
+  - sudo cp /etc/apt/sources.list /etc/apt/sources.list.d/trusty.list
+  - sudo sed -i 's/precise/trusty/g' /etc/apt/sources.list.d/trusty.list
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq -y --force-yes flexc++ bisonc++ protobuf-compiler libprotobuf-dev python-setuptools
+  #
+  # Install SystemC
+  - wget http://www.accellera.org/images/downloads/standards/systemc/systemc-2.3.1.tgz
+  - tar -xzf systemc-2.3.1.tgz
+  - cd systemc-2.3.1
+  - ./configure --prefix=/usr --with-unix-layout
+  - make
+  - sudo make install
+  - cd ..
+
+# Build and install our packages
+install:
+  - cmake .
+  - make
+  - sudo make install
+
+# Test that the libraries was installed correctly
+script:
+  # Test that both are installed properly
+  # TODO(gordon) - (cd tests/PFP-P4 && cmake .)
+  # TODO(gordon) - (cd tests/PFPSIM && cmake .)
+  # Test that a simple PFPSIM project works
+  - (mkdir -p tests/simple-pfp/simple/build && cd tests/simple-pfp/simple/build && cmake ../src && make && ./simple-sim -v debug)
+  # Test uninstall
+  - sudo make uninstall && sudo rm install_manifest.txt
+  # TODO(gordon) - (cd tests/PFP-P4/ && ./check-cmake-fails)
+  # TODO(gordon) - (cd tests/PFP-P4/ && ./check-cmake-fails)
+  # Test making deb package and installing it
+  - make package
+  - sudo dpkg -i pfpsim-$VERSION_NUMBER-Linux.deb
+  # Test that both are installed properly
+  # TODO(gordon) - (cd tests/PFP-P4 && cmake .)
+  # TODO(gordon) - (cd tests/PFPSIM && cmake .)
+  # Test that a simple PFPSIM project works
+  - (mkdir -p tests/simple-pfp/simple/build && cd tests/simple-pfp/simple/build && cmake ../src && make && for i in {1..100}; do ./simple-sim -v debug; done)
+
+before_deploy:
+  - mv pfpsim-$VERSION_NUMBER-Linux.deb pfpsim-$VERSION_NUMBER-Linux-$CXX.deb
+
+env:
+  global:
+    - VERSION_NUMBER=$(.travis/get_version_from_tag.sh complete)
+deploy:
+  provider: releases
+  api_key:
+    secure: "PwoOnJFSC/x1hW2zJ0oicOKSGz44gurQvMmMsg/bKgbzJ66xHzu6CuEOa/y9oMbb/zu6za+Cm2wbU4hTuvQIUA17zEiTfOw8hwSgH0Iu8l8Go7G3FqjduiWC/1o9yzZ3Zanyz/HD97LzlWUIN2FdfrtHjivazIPlaVt4/L6qTUlNdmue6mt3F8qU2sjSn1ibvYsXy4+2fm0sDY+/fkvk57+Y8SAgAfrUHvx0rFFJZ/zyTCXH0NKPbXQT+2yq5h4DMpp4+dq/q9dUcbdLATAZ/nmhfOWJ+fWRj0YMsteKm1vzZFt6DbYeL5h+GHu9ZqJs6fOw47BOjut+TyRf8+eASIqk6stkrH29aroVAYYeQbbj34HJrOIHshpvrwU3t+wVVKeP3CvXa/LciQB73MrZNgx2PkfTDSYmsUPM4qAsrQ+79iMk3UbRVp2WLIVJKMADnZuQS+Vyn9GXH7wg+hpt7kuoK2lvqHPFsln9/drQARnWvTayq9LfNjENfb8i/NfGpe3Rks2kzpCsj3Ti27f6zKf8XciGxrrEBvRvHP6Ho5RBWdZk7D1lPE+QkFba/5N7Mcwx0eIKZHFxvtsExagIIvOQHmjTqHuqr+UOc4htJPituuJ3aIoM5l47mOw4p3oUlB19JckV8RsrI+0BrQYURIaOvd1ttZuXMMoeU7upGow="
+  file: pfpsim-$VERSION_NUMBER-Linux-$CXX.deb
+  skip_cleanup: true
+  on:
+    tags: true

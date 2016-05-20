@@ -1,0 +1,4 @@
+<map id="pfp::core::db::DebuggerPacket::updateTraceReadTime" name="pfp::core::db::DebuggerPacket::updateTraceReadTime">
+<area shape="rect" id="node2" href="$classpfp_1_1core_1_1db_1_1DebugDataManager.html#aa59e25a018d39d224d580ebdbcd85255" title="Add a new packet or update an existing one. " alt="" coords="260,5,433,47"/>
+<area shape="rect" id="node3" href="$classpfp_1_1core_1_1db_1_1DebugObserver.html#a53f5ee3a75637268e52ffe45a38229d0" title="Function called by the simulation when data is written by a module. " alt="" coords="481,5,683,47"/>
+</map>

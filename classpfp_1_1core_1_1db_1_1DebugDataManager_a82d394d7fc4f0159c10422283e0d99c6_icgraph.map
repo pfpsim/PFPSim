@@ -1,0 +1,4 @@
+<map id="pfp::core::db::DebugDataManager::checkIgnoreModules" name="pfp::core::db::DebugDataManager::checkIgnoreModules">
+<area shape="rect" id="node2" href="$classpfp_1_1core_1_1db_1_1DebugObserver.html#a53f5ee3a75637268e52ffe45a38229d0" title="Function called by the simulation when data is written by a module. " alt="" coords="269,5,471,47"/>
+<area shape="rect" id="node3" href="$classpfp_1_1core_1_1db_1_1DebugObserver.html#ace8d5bad24c9d4f4b561c4fd36d57185" title="Function called by the simulation when data is read by a module. " alt="" coords="269,71,471,112"/>
+</map>

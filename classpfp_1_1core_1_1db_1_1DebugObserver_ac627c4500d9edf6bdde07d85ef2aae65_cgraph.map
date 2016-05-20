@@ -1,0 +1,5 @@
+<map id="pfp::core::db::DebugObserver::data_dropped" name="pfp::core::db::DebugObserver::data_dropped">
+<area shape="rect" id="node2" href="$classpfp_1_1core_1_1db_1_1DebugDataManager.html#aea94ae1a112343ee3773cd2b55d98544" title="Add a packet to the list of dropped packets. " alt="" coords="269,5,475,47"/>
+<area shape="rect" id="node3" href="$classpfp_1_1core_1_1db_1_1DebugDataManager.html#a8998990ca92d7b587ed4d32dc08b083e" title="Check if the debugger is currently set to break when a packet is dropped. " alt="" coords="255,71,489,112"/>
+<area shape="rect" id="node4" href="$classpfp_1_1core_1_1db_1_1DebuggerIPCServer.html#ab689790660a5111bdfbee8a296fdd9ea" title="Set the message that will be send to pfpdb the next time the simulation is halted. " alt="" coords="257,136,487,177"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="pfp::core::PFPObserver::counter_removed" name="pfp::core::PFPObserver::counter_removed">
+<area shape="rect" id="node2" href="$classpfp_1_1core_1_1PFPObject.html#ac8a70a449f6774597968f0b33d0594b4" title="Notify all attached observers when a counter is removed from the PFPObject. " alt="" coords="220,5,400,47"/>
+<area shape="rect" id="node3" href="$classpfp_1_1core_1_1PFPObject.html#a18a0e152813bd061103da5640620ae49" title="Remove a counter from the PFPObject. " alt="" coords="448,5,596,47"/>
+</map>

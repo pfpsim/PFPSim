@@ -1,0 +1,4 @@
+<map id="pfp::core::PFPObject::notify_data_dropped" name="pfp::core::PFPObject::notify_data_dropped">
+<area shape="rect" id="node2" href="$classpfp_1_1core_1_1PFPObserver.html#aa190ee3f13d9958c3a9039eea1f9ed9c" title="Function called by the NPU when data is dropped in a module. " alt="" coords="212,5,379,47"/>
+<area shape="rect" id="node3" href="$classMTQueue.html#a1b8d763529ae9eb53bce1c09f8f82507" title="Push an item onto the MTQueue. " alt="" coords="235,71,355,98"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="nlohmann::basic_json::basic_json" name="nlohmann::basic_json::basic_json">
+<area shape="rect" id="node2" href="$classnlohmann_1_1basic__json.html#a5685815624b086caa532f41e853d4b0f" title="explicitly create an array from an initializer list " alt="" coords="209,5,365,47"/>
+<area shape="rect" id="node3" href="$classnlohmann_1_1basic__json.html#ad25b2f8c21e241e2d63455537a9294ff" title="explicitly create an object from an initializer list " alt="" coords="209,71,365,112"/>
+<area shape="rect" id="node4" href="$classnlohmann_1_1basic__json.html#a59732a1de287a7301cca19a7a7748159" title="access specified array element " alt="" coords="209,136,365,177"/>
+<area shape="rect" id="node5" href="$classnlohmann_1_1basic__json.html#a140b8251f82e99ad279dcad5c977e26b" title="access specified object element " alt="" coords="413,103,569,144"/>
+<area shape="rect" id="node6" href="$classnlohmann_1_1basic__json.html#a9486a272e034c0548305d7a12f3045e6" title="add an object to an object " alt="" coords="413,168,569,209"/>
+</map>

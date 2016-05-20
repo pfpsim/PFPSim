@@ -1,0 +1,5 @@
+<map id="pfp::core::PFPObject::notify_counter_changed" name="pfp::core::PFPObject::notify_counter_changed">
+<area shape="rect" id="node2" href="$classpfp_1_1core_1_1PFPObject.html#ab8e4b5c8876e05fa30c360140534886d" title="Set the value of a counter. " alt="" coords="235,5,383,47"/>
+<area shape="rect" id="node3" href="$classpfp_1_1core_1_1PFPObject.html#ab222c952c3baaee7a1e1500e50b4c413" title="Increment the specified counter. " alt="" coords="235,71,383,112"/>
+<area shape="rect" id="node4" href="$classpfp_1_1core_1_1PFPObject.html#a33c74496232302a3d5b794292eeda719" title="Decrement the specified counter. " alt="" coords="233,136,384,177"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="pfp::core::PFPObject::notify_counter_removed" name="pfp::core::PFPObject::notify_counter_removed">
+<area shape="rect" id="node2" href="$classpfp_1_1core_1_1PFPObserver.html#a2281daf8c9923c7159963245aafd6789" title="Function called by the NPU when a counter is removed from a module. " alt="" coords="233,5,400,47"/>
+<area shape="rect" id="node3" href="$classMTQueue.html#a1b8d763529ae9eb53bce1c09f8f82507" title="Push an item onto the MTQueue. " alt="" coords="257,71,377,98"/>
+</map>
