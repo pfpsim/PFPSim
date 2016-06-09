@@ -237,6 +237,7 @@ class DebuggerIPCServer {
   void handleGetTableEntries();
 
   void handleGetParsedPacket(int id);
+  void handleGetRawPacket(int id);
 
   /**
    * Send pfpdb a generic reply so that it may regain control.
