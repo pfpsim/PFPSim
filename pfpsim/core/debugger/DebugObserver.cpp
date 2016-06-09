@@ -126,7 +126,8 @@ void DebugObserver::data_written(const std::string& from_module,
   }
   updateSimulationTime(simulation_time);
 
-  data_manager->updatePacket(data->id(), data->debug_info(), from_module, simulation_time, false);
+  data_manager->updatePacket(data->id(), data->debug_info(),
+                             from_module, simulation_time, false);
 
   if (!data_manager->checkIgnoreModules(from_module)) {
     checkBreakpointHit(from_module, data->id(), simulation_time, false);
@@ -147,7 +148,8 @@ void DebugObserver::data_read(const std::string& to_module,
   }
 
   updateSimulationTime(simulation_time);
-  data_manager->updatePacket(data->id(), data->debug_info(), to_module, simulation_time, false);
+  data_manager->updatePacket(data->id(), data->debug_info(),
+                             to_module, simulation_time, false);
 
   if (!data_manager->checkIgnoreModules(to_module)) {
     checkBreakpointHit(to_module, data->id(), simulation_time, true);

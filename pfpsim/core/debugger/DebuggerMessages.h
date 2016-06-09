@@ -237,14 +237,20 @@ class TableEntriesMessage: public DebuggerMessage {
         std::vector<CPDebuggerInterface::TableEntry> table_entries);
 };
 
+class PacketFieldValueMessage: public DebuggerMessage {
+ public:
+  explicit PacketFieldValueMessage(const std::vector<uint8_t> & data);
+};
+
 class RawPacketValueMessage: public DebuggerMessage {
  public:
-  RawPacketValueMessage(const std::vector<uint8_t> & data);
+  explicit RawPacketValueMessage(const std::vector<uint8_t> & data);
 };
 
 class ParsedPacketValueMessage: public DebuggerMessage {
  public:
-  ParsedPacketValueMessage(const std::vector<DebugInfo::Header> & headers);
+  explicit ParsedPacketValueMessage(
+      const std::vector<DebugInfo::Header> & headers);
 };
 
 };  // namespace db

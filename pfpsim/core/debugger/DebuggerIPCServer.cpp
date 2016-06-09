@@ -306,6 +306,13 @@ void DebuggerIPCServer::parseRequest(PFPSimDebugger::DebugMsg *request) {
       handleGetTableEntries();
       break;
     }
+    case PFPSimDebugger::DebugMsg_Type_GetPacketField:
+    {
+      PFPSimDebugger::GetPacketFieldMsg msg;
+      msg.ParseFromString(request->message());
+      handleGetPacketField(msg.id(), msg.field_name());
+      break;
+    }
     case PFPSimDebugger::DebugMsg_Type_GetRawPacket:
     {
       PFPSimDebugger::GetRawPacketMsg msg;
@@ -575,12 +582,27 @@ void DebuggerIPCServer::handleBacktrace(PFPSimDebugger::BacktraceMsg msg) {
   }
 }
 
+void DebuggerIPCServer::handleGetPacketField(int id, std::string field_name) {
+  DebuggerPacket *pk = data_manager->getPacket(id);
+  if (pk) {
+    auto dbg_info = pk->getDebugInfo();
+    if (dbg_info) {
+      auto raw_data = dbg_info->field_value(field_name);
+
+      PacketFieldValueMessage message(raw_data);
+
+      send(&message);
+    }
+  }
+
+  sendRequestFailed();
+}
+
 void DebuggerIPCServer::handleGetRawPacket(int id) {
   DebuggerPacket *pk = data_manager->getPacket(id);
   if (pk) {
     auto dbg_info = pk->getDebugInfo();
     if (dbg_info) {
-
       auto raw_data = dbg_info->raw_data();
 
       RawPacketValueMessage message(raw_data);
@@ -597,7 +619,6 @@ void DebuggerIPCServer::handleGetParsedPacket(int id) {
   if (pk) {
     auto dbg_info = pk->getDebugInfo();
     if (dbg_info) {
-
       auto parsed_data = dbg_info->parsed_data();
 
       ParsedPacketValueMessage message(parsed_data);

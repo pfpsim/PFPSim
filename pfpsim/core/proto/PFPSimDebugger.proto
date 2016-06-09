@@ -51,6 +51,9 @@ message DebugMsg {
 
     GetRawPacket = 45;
     RawPacketValue = 46;
+
+    GetPacketField = 47;
+    PacketFieldValue = 48;
   }
 
   required Type type = 1;
@@ -300,3 +303,12 @@ message RawPacketValueMsg {
   optional bytes value = 1;
 }
 
+
+message GetPacketFieldMsg {
+  optional int32 id = 1;
+  optional string field_name = 2;
+}
+
+message PacketFieldValueMsg {
+  optional bytes value = 1;
+}

@@ -115,7 +115,8 @@ class DebugDataManager {
    * @param time_  Time of update.
    * @param read   Indicates whether the update is for a read or a write. True = read, False = write.
    */
-  void updatePacket(int id, std::shared_ptr<const DebugInfo> di, std::string module, double time_, bool read);
+  void updatePacket(int id, std::shared_ptr<const DebugInfo> di,
+                    std::string module, double time_, bool read);
 
   /**
    * Remove a packet.

@@ -308,21 +308,28 @@ TableEntriesMessage::TableEntriesMessage(
   message.set_message(msg.SerializeAsString());
 }
 
+PacketFieldValueMessage::PacketFieldValueMessage(
+      const std::vector<uint8_t> & data)
+    : DebuggerMessage(PFPSimDebugger::DebugMsg_Type_PacketFieldValue) {
+  PFPSimDebugger::PacketFieldValueMsg msg;
+
+  msg.set_value(data.data(), data.size());
+
+  message.set_message(msg.SerializeAsString());
+}
+
 RawPacketValueMessage::RawPacketValueMessage(const std::vector<uint8_t> & data)
       : DebuggerMessage(PFPSimDebugger::DebugMsg_Type_RawPacketValue) {
-
   PFPSimDebugger::RawPacketValueMsg msg;
 
   msg.set_value(data.data(), data.size());
 
   message.set_message(msg.SerializeAsString());
-
 }
 
 ParsedPacketValueMessage::ParsedPacketValueMessage(
     const std::vector<DebugInfo::Header> & headers)
-      : DebuggerMessage(PFPSimDebugger::DebugMsg_Type_ParsedPacketValue) {
-
+  : DebuggerMessage(PFPSimDebugger::DebugMsg_Type_ParsedPacketValue) {
   PFPSimDebugger::ParsedPacketValueMsg msg;
 
   for (auto & h : headers) {
@@ -338,7 +345,6 @@ ParsedPacketValueMessage::ParsedPacketValueMessage(
   }
 
   message.set_message(msg.SerializeAsString());
-
 }
 
 

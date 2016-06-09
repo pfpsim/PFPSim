@@ -75,6 +75,8 @@ class DebugInfo {
   // Get the raw unparsed data of a packet.
   virtual RawData raw_data() const = 0;
 
+  virtual RawData field_value(const std::string & field_name) const = 0;
+
   // Get the parsed representation of a packet. Makes the (reasonable)
   // assumption that a packet is an ordered list of named headers,
   // each of which is just an ordered list of named fields.
