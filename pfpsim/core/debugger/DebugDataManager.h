@@ -110,11 +110,12 @@ class DebugDataManager {
   /**
    * Add a new packet or update an existing one.
    * @param id     ID of packet.
+   * @param di     The DebugObject representing this packet.
    * @param module Name of module the packet is currently in.
    * @param time_  Time of update.
    * @param read   Indicates whether the update is for a read or a write. True = read, False = write.
    */
-  void updatePacket(int id, std::string module, double time_, bool read);
+  void updatePacket(int id, std::shared_ptr<const DebugInfo> di, std::string module, double time_, bool read);
 
   /**
    * Remove a packet.

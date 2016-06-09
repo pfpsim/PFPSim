@@ -48,6 +48,8 @@
 #include "Watchpoint.h"
 #include "CPDebuggerInterface.h"
 
+#include "../TrType.h"
+
 namespace pfp {
 namespace core {
 namespace db {
@@ -233,6 +235,11 @@ class TableEntriesMessage: public DebuggerMessage {
  public:
   TableEntriesMessage(
         std::vector<CPDebuggerInterface::TableEntry> table_entries);
+};
+
+class ParsedPacketValueMessage: public DebuggerMessage {
+ public:
+  ParsedPacketValueMessage(const std::vector<DebugInfo::Header> & headers);
 };
 
 };  // namespace db

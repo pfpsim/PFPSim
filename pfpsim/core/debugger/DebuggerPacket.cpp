@@ -85,6 +85,14 @@ void DebuggerPacket::setTime(double t) {
   last_notify_time = t;
 }
 
+void DebuggerPacket::setDebugInfo(const std::shared_ptr<const DebugInfo> & di) {
+  debug_info = di;
+}
+
+std::shared_ptr<const DebugInfo> DebuggerPacket::getDebugInfo() const {
+  return debug_info;
+}
+
 };  // namespace db
 };  // namespace core
 };  // namespace pfp

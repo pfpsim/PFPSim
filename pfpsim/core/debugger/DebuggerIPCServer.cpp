@@ -306,6 +306,13 @@ void DebuggerIPCServer::parseRequest(PFPSimDebugger::DebugMsg *request) {
       handleGetTableEntries();
       break;
     }
+    case PFPSimDebugger::DebugMsg_Type_GetParsedPacket:
+    {
+      PFPSimDebugger::GetParsedPacketMsg msg;
+      msg.ParseFromString(request->message());
+      handleGetParsedPacket(msg.id());
+      break;
+    }
     default: {
       sendRequestFailed();
     }
@@ -559,6 +566,23 @@ void DebuggerIPCServer::handleBacktrace(PFPSimDebugger::BacktraceMsg msg) {
   } else {
     sendRequestFailed();
   }
+}
+
+void DebuggerIPCServer::handleGetParsedPacket(int id) {
+  DebuggerPacket *pk = data_manager->getPacket(id);
+  if (pk) {
+    auto dbg_info = pk->getDebugInfo();
+    if (dbg_info) {
+
+      auto parsed_data = dbg_info->parsed_data();
+
+      ParsedPacketValueMessage message(parsed_data);
+
+      send(&message);
+    }
+  }
+
+  sendRequestFailed();
 }
 
 void DebuggerIPCServer::handleEnableDisableBreakpoint(

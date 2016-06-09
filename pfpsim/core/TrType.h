@@ -40,9 +40,50 @@
 
 #include <iostream>
 #include <string>
+#include <memory>
+#include <vector>
 
 namespace pfp {
 namespace core {
+
+/**
+ *  Class which is used to hold info about a packet that
+ *  can be shown in the debugger.
+ */
+class DebugInfo {
+ public:
+  virtual ~DebugInfo() = default;
+
+  typedef std::vector<uint8_t> RawData;
+
+  struct Field {
+    const std::string name;
+    const RawData     value;
+
+    Field(std::string n, RawData v)
+      : name(n), value(v) {}
+  };
+
+  struct Header {
+    const std::string name;
+    const std::vector<Field> fields;
+
+    Header(std::string n, std::vector<Field> f)
+      : name(n), fields(f) {}
+  };
+
+  // Get the raw unparsed data of a packet.
+  virtual RawData raw_data() const = 0;
+
+  // Get the parsed representation of a packet. Makes the (reasonable)
+  // assumption that a packet is an ordered list of named headers,
+  // each of which is just an ordered list of named fields.
+  virtual std::vector<Header> parsed_data() const = 0;
+
+  // Check if this DebugInfo is still valid (refers to a packet which still
+  // exists inside the simulation)
+  virtual bool valid() const = 0;
+};
 
 class TrType {
  public:
@@ -66,6 +107,14 @@ class TrType {
    */
   virtual bool debuggable() const {
     return false;
+  }
+
+  /**
+   * Get a pointer to an object describing the packet held by this TrType.
+   * This method will only be called if `debuggable` returns true.
+   */
+  virtual std::shared_ptr<const DebugInfo> debug_info() const {
+    return nullptr;
   }
 
  private:

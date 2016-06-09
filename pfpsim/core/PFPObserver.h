@@ -45,6 +45,8 @@
 #include <string>
 #include <memory>
 
+#include "TrType.h"
+
 namespace pfp {
 namespace core {
 

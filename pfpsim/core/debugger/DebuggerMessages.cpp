@@ -32,6 +32,8 @@
 #include <string>
 #include <vector>
 
+#include "../TrType.h"
+
 namespace pfp {
 namespace core {
 namespace db {
@@ -305,6 +307,29 @@ TableEntriesMessage::TableEntriesMessage(
 
   message.set_message(msg.SerializeAsString());
 }
+
+ParsedPacketValueMessage::ParsedPacketValueMessage(
+    const std::vector<DebugInfo::Header> & headers)
+      : DebuggerMessage(PFPSimDebugger::DebugMsg_Type_ParsedPacketValue) {
+
+  PFPSimDebugger::ParsedPacketValueMsg msg;
+
+  for (auto & h : headers) {
+    auto pb_h = msg.add_headers();
+    pb_h->set_name(h.name);
+
+    for (auto & f : h.fields) {
+      auto pb_f = pb_h->add_fields();
+
+      pb_f->set_name(f.name);
+      pb_f->set_value(f.value.data(), f.value.size());
+    }
+  }
+
+  message.set_message(msg.SerializeAsString());
+
+}
+
 
 };  // namespace db
 };  // namespace core
