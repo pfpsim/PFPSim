@@ -105,6 +105,7 @@ void DebugDataManager::removeBreakpoint(int identifier) {
 
 void DebugDataManager::enableBreakpoint(int id) {
   std::lock_guard<std::mutex> guard(mutex_);
+  // TODO(gordon) Don't do a linear search!
   for (auto bkpt = breakpoint_list.begin();
         bkpt != breakpoint_list.end(); bkpt++) {
     if (bkpt->getID() == id) {
@@ -116,6 +117,7 @@ void DebugDataManager::enableBreakpoint(int id) {
 
 void DebugDataManager::disableBreakpoint(int id) {
   std::lock_guard<std::mutex> guard(mutex_);
+  // TODO(gordon) Don't do a linear search!
   for (auto bkpt = breakpoint_list.begin();
         bkpt != breakpoint_list.end(); bkpt++) {
     if (bkpt->getID() == id) {
@@ -125,22 +127,29 @@ void DebugDataManager::disableBreakpoint(int id) {
   }
 }
 
-void DebugDataManager::updatePacket(int id, std::string module, double time_,
-      bool read) {
+void DebugDataManager::updatePacket(int id,
+                                    std::shared_ptr<const DebugInfo> di,
+                                    std::string module, double time_,
+                                    bool read) {
   std::lock_guard<std::mutex> guard(mutex_);
-    auto check_pk = packet_list.find(id);
-    if (check_pk == packet_list.end()) {
-      DebuggerPacket pk(id, module, time_);
-      packet_list[id] = pk;
-    }
-    DebuggerPacket& packet = packet_list.at(id);
-    if (read) {
-      packet.setTime(time_);
-      packet.setCurrentLocation(module);
-      packet.updateTraceReadTime(module, time_);
-    } else {
-      packet.updateTraceWriteTime(module, time_);
-    }
+
+  auto check_pk = packet_list.find(id);
+  if (check_pk == packet_list.end()) {
+    DebuggerPacket pk(id, module, time_);
+    packet_list[id] = pk;
+  }
+
+  DebuggerPacket& packet = packet_list.at(id);
+
+  packet.setDebugInfo(di);
+
+  if (read) {
+    packet.setTime(time_);
+    packet.setCurrentLocation(module);
+    packet.updateTraceReadTime(module, time_);
+  } else {
+    packet.updateTraceWriteTime(module, time_);
+  }
 }
 
 void DebugDataManager::removePacket(int id) {
@@ -150,6 +159,7 @@ void DebugDataManager::removePacket(int id) {
 
 void DebugDataManager::addWatchpoint(Watchpoint wp) {
   std::lock_guard<std::mutex> guard(mutex_);
+  // TODO(gordon) Don't do a linear search!
   for (auto it = watchpoint_list.begin(); it != watchpoint_list.end(); it++) {
     if (it->getCounterName() == wp.getCounterName()) {
       return;
@@ -160,6 +170,7 @@ void DebugDataManager::addWatchpoint(Watchpoint wp) {
 
 void DebugDataManager::removeWatchpoint(int id) {
   std::lock_guard<std::mutex> guard(mutex_);
+  // TODO(gordon) Don't do a linear search!
   for (auto it = watchpoint_list.begin(); it != watchpoint_list.end(); it++) {
     if (it->getID() == id) {
       watchpoint_list.erase(it);
@@ -170,6 +181,7 @@ void DebugDataManager::removeWatchpoint(int id) {
 
 void DebugDataManager::enableWatchpoint(int id) {
   std::lock_guard<std::mutex> guard(mutex_);
+  // TODO(gordon) Don't do a linear search!
   for (auto it = watchpoint_list.begin(); it != watchpoint_list.end(); it++) {
     if (it->getID() == id) {
       it->disabled = false;
@@ -180,6 +192,7 @@ void DebugDataManager::enableWatchpoint(int id) {
 
 void DebugDataManager::disableWatchpoint(int id) {
   std::lock_guard<std::mutex> guard(mutex_);
+  // TODO(gordon) Don't do a linear search!
   for (auto it = watchpoint_list.begin(); it != watchpoint_list.end(); it++) {
     if (it->getID() == id) {
       it->disabled = true;

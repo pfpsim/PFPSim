@@ -236,6 +236,10 @@ class DebuggerIPCServer {
   void handleCPCommand(PFPSimDebugger::CPCommandMsg msg);
   void handleGetTableEntries();
 
+  void handleGetParsedPacket(int id);
+  void handleGetRawPacket(int id);
+  void handleGetPacketField(int id, std::string field_name);
+
   /**
    * Send pfpdb a generic reply so that it may regain control.
    */

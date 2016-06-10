@@ -131,7 +131,7 @@ PFPSimDebugger::DebugMsg* DebuggerIPCServer::recv() {
     char *buf;
     int bytes = nn_recv(socket, &buf, NN_MSG, 0);
     if (bytes != -1) {
-      std::string message_string(buf);
+      std::string message_string(buf, bytes);
       nn_freemsg(buf);
 
       PFPSimDebugger::DebugMsg *message = new PFPSimDebugger::DebugMsg();
@@ -304,6 +304,27 @@ void DebuggerIPCServer::parseRequest(PFPSimDebugger::DebugMsg *request) {
     case PFPSimDebugger::DebugMsg_Type_GetTableEntries:
     {
       handleGetTableEntries();
+      break;
+    }
+    case PFPSimDebugger::DebugMsg_Type_GetPacketField:
+    {
+      PFPSimDebugger::GetPacketFieldMsg msg;
+      msg.ParseFromString(request->message());
+      handleGetPacketField(msg.id(), msg.field_name());
+      break;
+    }
+    case PFPSimDebugger::DebugMsg_Type_GetRawPacket:
+    {
+      PFPSimDebugger::GetRawPacketMsg msg;
+      msg.ParseFromString(request->message());
+      handleGetRawPacket(msg.id());
+      break;
+    }
+    case PFPSimDebugger::DebugMsg_Type_GetParsedPacket:
+    {
+      PFPSimDebugger::GetParsedPacketMsg msg;
+      msg.ParseFromString(request->message());
+      handleGetParsedPacket(msg.id());
       break;
     }
     default: {
@@ -559,6 +580,54 @@ void DebuggerIPCServer::handleBacktrace(PFPSimDebugger::BacktraceMsg msg) {
   } else {
     sendRequestFailed();
   }
+}
+
+void DebuggerIPCServer::handleGetPacketField(int id, std::string field_name) {
+  DebuggerPacket *pk = data_manager->getPacket(id);
+  if (pk) {
+    auto dbg_info = pk->getDebugInfo();
+    if (dbg_info) {
+      auto raw_data = dbg_info->field_value(field_name);
+
+      PacketFieldValueMessage message(raw_data);
+
+      send(&message);
+    }
+  }
+
+  sendRequestFailed();
+}
+
+void DebuggerIPCServer::handleGetRawPacket(int id) {
+  DebuggerPacket *pk = data_manager->getPacket(id);
+  if (pk) {
+    auto dbg_info = pk->getDebugInfo();
+    if (dbg_info) {
+      auto raw_data = dbg_info->raw_data();
+
+      RawPacketValueMessage message(raw_data);
+
+      send(&message);
+    }
+  }
+
+  sendRequestFailed();
+}
+
+void DebuggerIPCServer::handleGetParsedPacket(int id) {
+  DebuggerPacket *pk = data_manager->getPacket(id);
+  if (pk) {
+    auto dbg_info = pk->getDebugInfo();
+    if (dbg_info) {
+      auto parsed_data = dbg_info->parsed_data();
+
+      ParsedPacketValueMessage message(parsed_data);
+
+      send(&message);
+    }
+  }
+
+  sendRequestFailed();
 }
 
 void DebuggerIPCServer::handleEnableDisableBreakpoint(

@@ -215,15 +215,6 @@ class DebugObserver : public PFPObserver {
   void updateWhoAmI(int packet_id);
 
   /**
-   * Update the list of packets.
-   * This adds the packet if does not exists.
-   * @param id  ID of packet.
-   * @param loc Module the packet is currently in.
-   * @param t   Current simulation time in nanoseconds.
-   */
-  void updatePacketList(int id, std::string loc, double t);
-
-  /**
    * Check to see if the module, packet id or simulation time should cause a breakpoint hit.
    * @param module    Current module name.
    * @param packet_id ID of current packet.

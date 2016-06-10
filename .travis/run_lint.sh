@@ -43,7 +43,7 @@
 #      +y --> don't ignore category y
 #      Separate each by a comma with no space
 #      Example: -whitespace,+whitespace/braces  --> ignores all 'whitespace' errors except the 'whitespace/braces' errors.
-filters="-legal/copyright,-runtime/references,-build/include_subdir,-build/c++11"
+filters="-runtime/references,-build/include_subdir,-build/c++11"
 
 # Root Directory:  Used to determine appropriate header guards
 #          The path must be relative to the location of the directory containing the .git file

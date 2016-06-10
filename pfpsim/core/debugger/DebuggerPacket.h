@@ -42,6 +42,8 @@
 #include <string>
 #include <vector>
 
+#include "../TrType.h"
+
 namespace pfp {
 namespace core {
 namespace db {
@@ -126,11 +128,16 @@ class DebuggerPacket {
    */
   void setTime(double t);
 
+  std::shared_ptr<const DebugInfo> getDebugInfo() const;
+  void setDebugInfo(const std::shared_ptr<const DebugInfo> & ptr);
+
  private:
   int packet_id;    /*!< Packet ID. */
   std::string current_location;    /*!< Current Location. */
   double last_notify_time;    /*!< Time of last update. */
   std::vector<PacketLocation> trace;   /*!< Backtrace of packet. */
+
+  std::shared_ptr<const DebugInfo> debug_info;
 };
 
 };  // namespace db

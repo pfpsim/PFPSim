@@ -126,7 +126,8 @@ void DebugObserver::data_written(const std::string& from_module,
   }
   updateSimulationTime(simulation_time);
 
-  data_manager->updatePacket(data->id(), from_module, simulation_time, false);
+  data_manager->updatePacket(data->id(), data->debug_info(),
+                             from_module, simulation_time, false);
 
   if (!data_manager->checkIgnoreModules(from_module)) {
     checkBreakpointHit(from_module, data->id(), simulation_time, false);
@@ -147,7 +148,8 @@ void DebugObserver::data_read(const std::string& to_module,
   }
 
   updateSimulationTime(simulation_time);
-  updatePacketList(data->id(), to_module, simulation_time);
+  data_manager->updatePacket(data->id(), data->debug_info(),
+                             to_module, simulation_time, false);
 
   if (!data_manager->checkIgnoreModules(to_module)) {
     checkBreakpointHit(to_module, data->id(), simulation_time, true);
@@ -167,8 +169,11 @@ void DebugObserver::data_dropped(const std::string& in_module,
           << " in " << in_module << ":\nType: " << data->data_type()
           << "\nPacket ID: " << data->id() << "\nSource: " << std::endl;
   }
+
   updateSimulationTime(simulation_time);
+
   data_manager->addDroppedPacket(data->id(), in_module, drop_reason);
+
   if (data_manager->getBreakOnPacketDrop()) {
     PacketDroppedMessage *msg
           = new PacketDroppedMessage(data->id(), in_module, drop_reason);
@@ -253,10 +258,6 @@ void DebugObserver::updateSimulationTime(double sim_time) {
 
 void DebugObserver::updateWhoAmI(int packet_id) {
   data_manager->set_whoami(packet_id);
-}
-
-void DebugObserver::updatePacketList(int id, std::string loc, double t) {
-  data_manager->updatePacket(id, loc, t, true);
 }
 
 void DebugObserver::checkBreakpointHit(std::string module, int packet_id,
