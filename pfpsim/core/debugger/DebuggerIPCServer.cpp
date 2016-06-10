@@ -131,7 +131,7 @@ PFPSimDebugger::DebugMsg* DebuggerIPCServer::recv() {
     char *buf;
     int bytes = nn_recv(socket, &buf, NN_MSG, 0);
     if (bytes != -1) {
-      std::string message_string(buf);
+      std::string message_string(buf, bytes);
       nn_freemsg(buf);
 
       PFPSimDebugger::DebugMsg *message = new PFPSimDebugger::DebugMsg();
