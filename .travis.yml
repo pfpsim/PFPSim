@@ -2,9 +2,11 @@ sudo: required
 
 language: cpp
 
-compiler:
-  - clang
-  - gcc
+matrix:
+  include:
+    - env: COMPILER=g++-4.8
+    - env: COMPILER=g++-5
+    - env: COMPILER=clang++-3.5
 
 # N.B. - The P4 cmake configure step under Travis will install all of its dependencies,
 # some of which overlap with our dependencies. Notably:
@@ -18,8 +20,13 @@ before_install:
   # Copy pasted from https://github.com/jdm64/saphyr/blob/8808c34dec4f94f86a8dd6a832037cba4ba2d88a/.travis.yml
   - sudo cp /etc/apt/sources.list /etc/apt/sources.list.d/trusty.list
   - sudo sed -i 's/precise/trusty/g' /etc/apt/sources.list.d/trusty.list
-  - sudo apt-get update -qq
+  - if [[ $COMPILER == g++-5       ]]; then sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y; fi
+  - sudo apt-get update -qq -y
+  - if [[ $COMPILER == g++-4.8     ]]; then sudo apt-get install -q -y g++-4.8;     fi
+  - if [[ $COMPILER == g++-5       ]]; then sudo apt-get install -q -y g++-5;       fi
+  - if [[ $COMPILER == clang++-3.5 ]]; then sudo apt-get install -q -y clang++-3.5; fi
   - sudo apt-get install -qq -y --force-yes flexc++ bisonc++ protobuf-compiler libprotobuf-dev python-setuptools
+  - export CXX=$COMPILER
   #
   # Install SystemC
   - wget http://www.accellera.org/images/downloads/standards/systemc/systemc-2.3.1.tgz
