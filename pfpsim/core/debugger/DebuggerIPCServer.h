@@ -240,6 +240,7 @@ class DebuggerIPCServer {
   void handleGetRawPacket(int id);
   void handleGetPacketField(int id, std::string field_name);
 
+  void handleStartTracing(PFPSimDebugger::StartTracingMsg & msg);
   /**
    * Send pfpdb a generic reply so that it may regain control.
    */

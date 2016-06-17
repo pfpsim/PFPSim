@@ -40,7 +40,8 @@ namespace core {
 namespace db {
 
 DebugDataManager::DebugDataManager()
-      : simulation_time(0.0),
+      : trace_id(0),
+      simulation_time(0.0),
       current_packet_id(-1),
       next_watchpoint_id(0),
       break_packet_dropped(false) {}
@@ -53,6 +54,28 @@ void DebugDataManager::addCounter(std::string name) {
 void DebugDataManager::removeCounter(std::string name) {
   std::lock_guard<std::mutex> guard(mutex_);
   counters.erase(name);
+}
+
+int DebugDataManager::addCounterTrace(const std::string & name) {
+  std::lock_guard<std::mutex> guard(mutex_);
+
+  // If there's no counter with this name, then we can't set a trace
+  if (counters.find(name) == counters.end()) {
+    return -1;
+  }
+
+  // If a trace already exists, we won't make a new one.
+  if (counter_traces.find(name) != counter_traces.end()) {
+    return -2;
+  }
+
+  // Creating the trace itself is really as simple as assigning it
+  // an ID.
+  int id = trace_id++;
+
+  counter_traces[name] = id;
+
+  return id;
 }
 
 void DebugDataManager::updateCounter(std::string name, int val) {

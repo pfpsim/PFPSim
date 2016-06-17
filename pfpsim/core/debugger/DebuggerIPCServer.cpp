@@ -327,6 +327,12 @@ void DebuggerIPCServer::parseRequest(PFPSimDebugger::DebugMsg *request) {
       handleGetParsedPacket(msg.id());
       break;
     }
+    case PFPSimDebugger::DebugMsg_Type_StartTracing:
+    {
+      PFPSimDebugger::StartTracingMsg msg;
+      msg.ParseFromString(request->message());
+      handleStartTracing(msg);
+    }
     default: {
       sendRequestFailed();
     }
@@ -717,6 +723,24 @@ void DebuggerIPCServer::handleGetTableEntries() {
   TableEntriesMessage *message = new TableEntriesMessage(entries);
   send(message);
   delete message;
+}
+
+void DebuggerIPCServer::handleStartTracing(PFPSimDebugger::StartTracingMsg & msg) {
+  switch (msg.type()) {
+    case PFPSimDebugger::StartTracingMsg_Type_COUNTER:
+    {
+      std::string counter_name = msg.name();
+      int id = data_manager->addCounterTrace(counter_name);
+      if (id < 0) {
+        sendRequestFailed();
+      } else {
+        StartTracingStatusMessage response(id);
+        send(&response);
+      }
+    }
+
+    default: break;
+  }
 }
 
 void DebuggerIPCServer::sendGenericReply() {

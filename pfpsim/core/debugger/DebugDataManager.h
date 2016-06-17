@@ -90,6 +90,13 @@ class DebugDataManager {
   void addBreakpoint(Breakpoint br);
 
   /**
+   * Add a trace to a counter by name
+   * @param name The name of the counter to trace
+   * @return The ID of the trace.
+   */
+  int addCounterTrace(const std::string & name);
+
+  /**
    * Remove a Breakpoint.
    * @param identifier ID of Breakpoint to remove.
    */
@@ -279,6 +286,10 @@ class DebugDataManager {
  private:
   //! Map with counter name as key and counter value as the value.
   std::map<std::string, int> counters;
+  //! The next id to be assigned to a trace.
+  int trace_id;
+  //! Map of counters we're tracing, and their trace IDs.
+  std::map<std::string, int> counter_traces;
   //! Mutex to make sure only one thread access the variables
   //! of this class at a time.
   std::mutex mutex_;
