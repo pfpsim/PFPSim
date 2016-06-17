@@ -349,7 +349,6 @@ ParsedPacketValueMessage::ParsedPacketValueMessage(
 
 StartTracingStatusMessage::StartTracingStatusMessage(int id)
   : DebuggerMessage(PFPSimDebugger::DebugMsg_Type_StartTracingStatus) {
-
   PFPSimDebugger::StartTracingStatusMsg msg;
   msg.set_id(id);
 

@@ -725,7 +725,8 @@ void DebuggerIPCServer::handleGetTableEntries() {
   delete message;
 }
 
-void DebuggerIPCServer::handleStartTracing(PFPSimDebugger::StartTracingMsg & msg) {
+void
+DebuggerIPCServer::handleStartTracing(PFPSimDebugger::StartTracingMsg & msg) {
   switch (msg.type()) {
     case PFPSimDebugger::StartTracingMsg_Type_COUNTER:
     {
