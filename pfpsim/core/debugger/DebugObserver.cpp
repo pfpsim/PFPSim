@@ -99,6 +99,12 @@ void DebugObserver::counter_updated(const std::string& module_name,
   if (old_value == -1) {
     old_value = 0;
   }
+
+  int trace_id = data_manager->getCounterTraceId(counter_name);
+  if (trace_id >= 0) {
+    ipc_server->updateTrace(trace_id, new_value);
+  }
+
   data_manager->updateCounter(counter_name, static_cast<int>(new_value));
   updateSimulationTime(simulation_time);
   std::vector<Watchpoint>& watchpoints = data_manager->getWatchpointList();

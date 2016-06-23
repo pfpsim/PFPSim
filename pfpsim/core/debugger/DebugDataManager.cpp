@@ -78,6 +78,16 @@ int DebugDataManager::addCounterTrace(const std::string & name) {
   return id;
 }
 
+int DebugDataManager::getCounterTraceId(const std::string & name) {
+  auto it = counter_traces.find(name);
+
+  if (it == counter_traces.end()) {
+    return -1;
+  } else {
+    return it->second;
+  }
+}
+
 void DebugDataManager::updateCounter(std::string name, int val) {
   std::lock_guard<std::mutex> guard(mutex_);
   auto it = counters.find(name);

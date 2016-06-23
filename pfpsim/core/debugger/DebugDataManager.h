@@ -283,6 +283,8 @@ class DebugDataManager {
    */
   void setSimulationTime(double time_ns);
 
+  int getCounterTraceId(const std::string & name);
+
  private:
   //! Map with counter name as key and counter value as the value.
   std::map<std::string, int> counters;

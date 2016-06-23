@@ -29,14 +29,22 @@
  */
 
 #include "DebuggerIPCServer.h"
+
+#include <nanomsg/reqrep.h>
+#include <nanomsg/pubsub.h>
+#include <nanomsg/nn.h>
+
 #include <signal.h>
 #include <string>
 #include <vector>
 #include <map>
 #include <tuple>
+#include <sstream>
+
 #include "Breakpoint.h"
 #include "Watchpoint.h"
 #include "DebuggerPacket.h"
+
 
 namespace pfp {
 namespace core {
@@ -44,14 +52,24 @@ namespace db {
 
 DebuggerIPCServer::DebuggerIPCServer(std::string url, DebugDataManager *dm)
       : data_manager(dm), reply_message(NULL) {
-  socket = nn_socket(AF_SP, NN_REP);
-  nn_bind(socket, url.c_str());
+  socket     = nn_socket(AF_SP, NN_REP);
+  socket_eid = nn_bind(socket, url.c_str());
+
+  trace_socket     = nn_socket(AF_SP, NN_PUB);
+  // TODO(gordon) Don't hardcore URL. For each model, create a uniquely
+  // named temporary directory and put standard named sockets inside that
+  // e.g. /tmp/pfpdb-F0OB4Rxyz/trace.ipc
+  //      /tmp/pfpdb-F0OB4Rxzy/reqrep.ipc
+  // TODO(gordon) don't need to create this trace socket unless traces are
+  // actually requested (could do it lazily)
+  trace_socket_eid = nn_bind(trace_socket, "ipc:///tmp/pfpdb-trace");
 }
 
 DebuggerIPCServer::~DebuggerIPCServer() {
   delete ulock;
   kill_thread = true;
-  nn_shutdown(socket, 0);
+  nn_shutdown(socket, socket_eid);
+  nn_shutdown(trace_socket, trace_socket_eid);
   debug_req_thread.join();
 }
 
@@ -102,6 +120,12 @@ void DebuggerIPCServer::setReplyMessage(DebuggerMessage *message) {
 
 void DebuggerIPCServer::registerCP(CPDebuggerInterface *cp_debug_if) {
   control_plane = cp_debug_if;
+}
+
+void DebuggerIPCServer::updateTrace(int id, size_t value) {
+  std::stringstream ss;
+  ss << "PFPDBZZ" << data_manager->getSimulationTime() << ", " << value;
+  int bytes_sent = nn_send(trace_socket, ss.str().c_str(), ss.str().size(), 0);
 }
 
 void DebuggerIPCServer::send(DebuggerMessage *message) {
