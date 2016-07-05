@@ -50,6 +50,18 @@ delete_entry {
   returnToken(DELETE_ENTRY);
 }
 
+begin\ transaction {
+  // reserved phrase, creates an empty command object
+  returnValue(new BeginTransactionCommand());
+  returnToken(BEGIN_TRANSACTION);
+}
+
+end\ transaction {
+  // reserved phrase, creates an empty command object
+  returnValue(new EndTransactionCommand());
+  returnToken(END_TRANSACTION);
+}
+
 #.* {
   returnToken(COMMENT);
 }

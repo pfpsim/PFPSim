@@ -196,6 +196,20 @@ class BootCompleteCommand : public Command {
   virtual ~BootCompleteCommand() = default;
 };
 
+class BeginTransactionCommand : public Command {
+ public:
+  void print() override;
+  OVERRIDE_PROCESS();
+  virtual ~BeginTransactionCommand() = default;
+};
+
+class EndTransactionCommand : public Command {
+ public:
+  void print() override;
+  OVERRIDE_PROCESS();
+  virtual ~EndTransactionCommand() = default;
+};
+
 #undef OVERRIDE_PROCESS
 
 // CommandProcessor
@@ -214,6 +228,8 @@ class CommandProcessor {
   DECLARE_PROCESS(ModifyCommand);
   DECLARE_PROCESS(DeleteCommand);
   DECLARE_PROCESS(BootCompleteCommand);
+  DECLARE_PROCESS(BeginTransactionCommand);
+  DECLARE_PROCESS(EndTransactionCommand);
 };
 #undef DECLARE_PROCESS
 

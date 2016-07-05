@@ -241,6 +241,14 @@ void BootCompleteCommand::print() {
   std::cout << "Boot Complete Command!" << std::endl;
 }
 
+void BeginTransactionCommand::print() {
+  std::cout << "Begin Transaction Command!" << std::endl;
+}
+
+void EndTransactionCommand::print() {
+  std::cout << "End Transaction Command!" << std::endl;
+}
+
 // Control plane agent passes itself to the message ...
 std::shared_ptr<CommandResult>
 CommandProcessor::accept_command(const std::shared_ptr<Command> & cmd) {
@@ -258,6 +266,8 @@ PROCESS(InsertCommand)
 PROCESS(ModifyCommand)
 PROCESS(DeleteCommand)
 PROCESS(BootCompleteCommand)
+PROCESS(BeginTransactionCommand)
+PROCESS(EndTransactionCommand)
 
 #undef PROCESS
 

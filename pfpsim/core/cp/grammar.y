@@ -64,6 +64,8 @@
              INSERT_COMMAND    : InsertCommand *;
              MODIFY_COMMAND    : ModifyCommand *;
              DELETE_COMMAND    : DeleteCommand *;
+             BEGIN_TRANSACTION_COMMAND : BeginTransactionCommand *;
+             END_TRANSACTION_COMMAND   : EndTransactionCommand *;
 
 
 /***** Nonterminal types *****/
@@ -79,10 +81,12 @@
 %type <BYTES>          action_param
 
 /* Commands */
-%type <INSERT_COMMAND> insert_entry_command
-%type <MODIFY_COMMAND> modify_entry_command
-%type <DELETE_COMMAND> delete_entry_command
-%type <COMMAND>        command
+%type <INSERT_COMMAND>    insert_entry_command
+%type <MODIFY_COMMAND>    modify_entry_command
+%type <DELETE_COMMAND>    delete_entry_command
+%type <BEGIN_TRANSACTION_COMMAND> begin_transaction_command
+%type <END_TRANSACTION_COMMAND>   end_transaction_command
+%type <COMMAND>           command
 
 /* Data */
 %type <BYTES>          bytes
@@ -104,6 +108,12 @@
 
 %token                 DELETE_ENTRY
 %type <DELETE_COMMAND> DELETE_ENTRY
+
+%token      BEGIN_TRANSACTION
+%type <BEGIN_TRANSACTION_COMMAND> BEGIN_TRANSACTION
+
+%token      END_TRANSACTION
+%type <END_TRANSACTION_COMMAND> END_TRANSACTION
 
 /* Literal values */
 %token                 DECIMAL
@@ -144,6 +154,12 @@ command:
   }|
   delete_entry_command{
     $$ = static_cast<Command*>($1);
+  }|
+  begin_transaction_command{
+    $$ = static_cast<Command*>($1);
+  }|
+  end_transaction_command{
+    $$ = static_cast<Command*>($1);
   };
 
 /* Command Formats */
@@ -167,6 +183,16 @@ delete_entry_command:
   DELETE_ENTRY __ IDENTIFIER __ DECIMAL {
     $1 -> set_table_name($3);
     $1 -> set_handle($5);
+    $$ = $1;
+  };
+
+end_transaction_command:
+  END_TRANSACTION {
+    $$ = $1;
+  };
+
+begin_transaction_command:
+  BEGIN_TRANSACTION {
     $$ = $1;
   };
 
