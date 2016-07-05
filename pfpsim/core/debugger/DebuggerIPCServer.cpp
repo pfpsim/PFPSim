@@ -39,6 +39,8 @@
 #include <vector>
 #include <map>
 #include <tuple>
+#include <iostream>
+#include <iomanip>
 #include <sstream>
 
 #include "Breakpoint.h"
@@ -123,9 +125,24 @@ void DebuggerIPCServer::registerCP(CPDebuggerInterface *cp_debug_if) {
 }
 
 void DebuggerIPCServer::updateTrace(int id, size_t value) {
-  std::stringstream ss;
-  ss << "PFPDB" << (char)(id&0xff) << (char)((id>>8) & 0xff)  << data_manager->getSimulationTime() << ", " << value;
-  int bytes_sent = nn_send(trace_socket, ss.str().c_str(), ss.str().size(), 0);
+  PFPSimDebugger::TracingUpdateMsg msg;
+  msg.set_id(id);
+  msg.set_timestamp(data_manager->getSimulationTime());
+  msg.set_int_value(value);
+
+  constexpr static size_t BUF_SIZE = 128;
+  constexpr static size_t TOPIC_SIZE = 5;  // strlen("PFPDB")
+  // TODO(gordon) don't hardcode the topic name
+  char buf[BUF_SIZE] = "PFPDB";
+  buf[TOPIC_SIZE]     = (id >> 8) & 0xff;
+  buf[TOPIC_SIZE + 1] =     id    & 0xff;
+
+  msg.SerializeToArray(buf + TOPIC_SIZE + 2, BUF_SIZE - (TOPIC_SIZE + 2));
+
+  auto msg_size = TOPIC_SIZE + 2 + msg.ByteSize();
+
+  int bytes_sent = nn_send(trace_socket, buf, msg_size, 0);
+  assert(bytes_sent == msg_size);
 }
 
 void DebuggerIPCServer::send(DebuggerMessage *message) {
