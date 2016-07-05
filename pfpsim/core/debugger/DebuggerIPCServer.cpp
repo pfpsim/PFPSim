@@ -124,7 +124,7 @@ void DebuggerIPCServer::registerCP(CPDebuggerInterface *cp_debug_if) {
 
 void DebuggerIPCServer::updateTrace(int id, size_t value) {
   std::stringstream ss;
-  ss << "PFPDBZZ" << data_manager->getSimulationTime() << ", " << value;
+  ss << "PFPDB" << (char)(id&0xff) << (char)((id>>8) & 0xff)  << data_manager->getSimulationTime() << ", " << value;
   int bytes_sent = nn_send(trace_socket, ss.str().c_str(), ss.str().size(), 0);
 }
 
