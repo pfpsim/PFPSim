@@ -283,6 +283,9 @@ CommandResult::CommandResult(std::shared_ptr<Command> cmd)
 InsertResult::InsertResult(std::shared_ptr<Command> cmd, size_t handle)
   : CommandResult(cmd), handle(handle) {}
 
+MultiResult::MultiResult()
+  : CommandResult(nullptr) {}
+
 #define PROCESS(TYPE) \
     void TYPE::process(ResultProcessor * rp) { \
       return rp->process(this); \
@@ -292,6 +295,14 @@ PROCESS(InsertResult)
 PROCESS(ModifyResult)
 PROCESS(DeleteResult)
 PROCESS(FailedResult)
+
+// Multi results work differently, they individually
+// process each of the results that they are composed of.
+void MultiResult::process(ResultProcessor * rp) {
+  for (const auto & res : results) {
+    rp->accept_result(res);
+  }
+}
 
 #undef PROCESS
 

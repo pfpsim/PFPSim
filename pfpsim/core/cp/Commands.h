@@ -257,7 +257,7 @@ class InsertResult : public CommandResult {
 
   InsertResult(std::shared_ptr<Command> cmd, size_t handle);
 
-  const size_t handle;
+  size_t handle;
 };
 
 class ModifyResult : public CommandResult {
@@ -285,6 +285,16 @@ class FailedResult : public CommandResult {
 
   const std::string message;
 };
+
+class MultiResult : public CommandResult {
+ public:
+  virtual ~MultiResult() = default;
+  MultiResult();
+  OVERRIDE_PROCESS();
+
+  std::vector<std::shared_ptr<CommandResult> > results;
+};
+
 #undef OVERRIDE_PROCESS
 
 #define DECLARE_PROCESS(TYPE)     \
