@@ -155,13 +155,17 @@ const std::string& PFPObject::fully_qualified_module_name() const {
   if (fully_qualified_module_name_ == "") {
     std::stringstream ss;
     bool first = true;
-    for (const auto & s : ModuleHierarchy()) {
+    auto hierarchy = ModuleHierarchy();
+    auto it  = hierarchy.rbegin();
+    auto end = hierarchy.rend();
+    ++it;  // skip 'top'
+    for (; it != end; ++it) {
       if (!first) {
         ss << '.';
       } else {
         first = false;
       }
-      ss << s;
+      ss << *it;
     }
     fully_qualified_module_name_ = ss.str();
   }
