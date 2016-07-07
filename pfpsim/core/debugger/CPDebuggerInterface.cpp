@@ -43,6 +43,7 @@ void CPDebuggerInterface::updateHandle(std::string table_name,
     if (table_entries[table_name].find(action_name)
           != table_entries[table_name].end()) {
       std::vector<TableEntry>& entries = table_entries[table_name][action_name];
+      // TODO(gordon) don't do a linear search
       for (auto it = entries.begin(); it != entries.end(); it++) {
         if (it->match_key == match_key) {
           it->handle = handle;

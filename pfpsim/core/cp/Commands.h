@@ -196,6 +196,20 @@ class BootCompleteCommand : public Command {
   virtual ~BootCompleteCommand() = default;
 };
 
+class BeginTransactionCommand : public Command {
+ public:
+  void print() override;
+  OVERRIDE_PROCESS();
+  virtual ~BeginTransactionCommand() = default;
+};
+
+class EndTransactionCommand : public Command {
+ public:
+  void print() override;
+  OVERRIDE_PROCESS();
+  virtual ~EndTransactionCommand() = default;
+};
+
 #undef OVERRIDE_PROCESS
 
 // CommandProcessor
@@ -214,6 +228,8 @@ class CommandProcessor {
   DECLARE_PROCESS(ModifyCommand);
   DECLARE_PROCESS(DeleteCommand);
   DECLARE_PROCESS(BootCompleteCommand);
+  DECLARE_PROCESS(BeginTransactionCommand);
+  DECLARE_PROCESS(EndTransactionCommand);
 };
 #undef DECLARE_PROCESS
 
@@ -241,7 +257,7 @@ class InsertResult : public CommandResult {
 
   InsertResult(std::shared_ptr<Command> cmd, size_t handle);
 
-  const size_t handle;
+  size_t handle;
 };
 
 class ModifyResult : public CommandResult {
@@ -269,6 +285,16 @@ class FailedResult : public CommandResult {
 
   const std::string message;
 };
+
+class MultiResult : public CommandResult {
+ public:
+  virtual ~MultiResult() = default;
+  MultiResult();
+  OVERRIDE_PROCESS();
+
+  std::vector<std::shared_ptr<CommandResult> > results;
+};
+
 #undef OVERRIDE_PROCESS
 
 #define DECLARE_PROCESS(TYPE)     \
