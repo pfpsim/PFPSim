@@ -271,6 +271,7 @@ class PFPObject {
  protected:
   const std::string GlobalConfigPath;
   const std::string module_name_;
+  mutable std::string fully_qualified_module_name_;
   PFPObject* parent_;                /*!< Parent of this PFPObject */
   std::map<std::string, std::string> configMap;  /*!< Configuration Map used >*/
   //! Store counters and values

@@ -140,7 +140,7 @@ class DebuggerIPCServer {
    */
   void registerCP(CPDebuggerInterface *cp_debug_if);
 
-  void updateTrace(int id, size_t value);
+  void updateTrace(int id, double value);
 
  private:
   //! socket which binds to ipc url

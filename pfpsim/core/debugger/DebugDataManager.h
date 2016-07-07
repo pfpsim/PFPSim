@@ -97,6 +97,23 @@ class DebugDataManager {
   int addCounterTrace(const std::string & name);
 
   /**
+   * Add a trace of the latency from ingress of one module to
+   * egress of another.
+   * @param from_module_name The name of the ingress module
+   * @param to_module_name   The name of the egress module
+   * @return The ID of the newly created trace.
+   */
+  int addLatencyTrace(const std::string & from_module_name,
+                      const std::string & to_module_name);
+
+  /**
+   * Add a trace of the throughput of a module
+   * @param module_name The name of the module to trace.
+   * @return The ID of the newly created trace.
+   */
+  int addThroughputTrace(const std::string & module_name);
+
+  /**
    * Remove a Breakpoint.
    * @param identifier ID of Breakpoint to remove.
    */
@@ -114,6 +131,11 @@ class DebugDataManager {
    */
   void disableBreakpoint(int id);
 
+  struct TraceData {
+    int id;
+    double value;
+  };
+
   /**
    * Add a new packet or update an existing one.
    * @param id     ID of packet.
@@ -122,7 +144,7 @@ class DebugDataManager {
    * @param time_  Time of update.
    * @param read   Indicates whether the update is for a read or a write. True = read, False = write.
    */
-  void updatePacket(int id, std::shared_ptr<const DebugInfo> di,
+  std::vector<TraceData> updatePacket(int id, std::shared_ptr<const DebugInfo> di,
                     std::string module, double time_, bool read);
 
   /**
@@ -292,6 +314,21 @@ class DebugDataManager {
   int trace_id;
   //! Map of counters we're tracing, and their trace IDs.
   std::map<std::string, int> counter_traces;
+
+  struct LatencyReadTrigger {
+    int trace_id;
+    std::string write_module_name;
+  };
+  std::map<std::string, std::vector<LatencyReadTrigger>> latency_read_triggers;
+
+  struct LatencyWriteTrigger {
+    int trace_id;
+    double read_time;
+  };
+  std::map<std::string,
+           std::map<int,
+                    std::vector<LatencyWriteTrigger>>> latency_write_triggers;
+
   //! Mutex to make sure only one thread access the variables
   //! of this class at a time.
   std::mutex mutex_;

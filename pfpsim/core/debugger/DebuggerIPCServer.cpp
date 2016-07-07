@@ -124,11 +124,11 @@ void DebuggerIPCServer::registerCP(CPDebuggerInterface *cp_debug_if) {
   control_plane = cp_debug_if;
 }
 
-void DebuggerIPCServer::updateTrace(int id, size_t value) {
+void DebuggerIPCServer::updateTrace(int id, double value) {
   PFPSimDebugger::TracingUpdateMsg msg;
   msg.set_id(id);
   msg.set_timestamp(data_manager->getSimulationTime());
-  msg.set_int_value(value);
+  msg.set_float_value(value);
 
   constexpr static size_t BUF_SIZE = 128;
   constexpr static size_t TOPIC_SIZE = 5;  // strlen("PFPDB")
@@ -773,6 +773,18 @@ DebuggerIPCServer::handleStartTracing(PFPSimDebugger::StartTracingMsg & msg) {
     {
       std::string counter_name = msg.name();
       int id = data_manager->addCounterTrace(counter_name);
+      if (id < 0) {
+        sendRequestFailed();
+      } else {
+        StartTracingStatusMessage response(id);
+        send(&response);
+      }
+    }
+    case PFPSimDebugger::StartTracingMsg_Type_LATENCY:
+    {
+      std::string from_module = msg.name();
+      std::string to_module   = msg.end_name();
+      int id = data_manager->addLatencyTrace(from_module, to_module);
       if (id < 0) {
         sendRequestFailed();
       } else {

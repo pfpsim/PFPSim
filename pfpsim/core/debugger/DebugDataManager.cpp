@@ -78,6 +78,25 @@ int DebugDataManager::addCounterTrace(const std::string & name) {
   return id;
 }
 
+int DebugDataManager::addLatencyTrace(const std::string & from_module_name,
+                                      const std::string & to_module_name) {
+
+  std::lock_guard<std::mutex> guard(mutex_);
+
+  int id = trace_id++;
+
+  latency_read_triggers[from_module_name].push_back({id, to_module_name});
+
+  return id;
+}
+
+int DebugDataManager::addThroughputTrace(const std::string & module_name) {
+  int id = -1;
+
+
+  return id;
+}
+
 int DebugDataManager::getCounterTraceId(const std::string & name) {
   auto it = counter_traces.find(name);
 
@@ -160,10 +179,13 @@ void DebugDataManager::disableBreakpoint(int id) {
   }
 }
 
-void DebugDataManager::updatePacket(int id,
-                                    std::shared_ptr<const DebugInfo> di,
-                                    std::string module, double time_,
-                                    bool read) {
+
+
+std::vector<DebugDataManager::TraceData>
+DebugDataManager::updatePacket(int id,
+                               std::shared_ptr<const DebugInfo> di,
+                               std::string module, double time_,
+                               bool read) {
   std::lock_guard<std::mutex> guard(mutex_);
 
   auto check_pk = packet_list.find(id);
@@ -180,8 +202,47 @@ void DebugDataManager::updatePacket(int id,
     packet.setTime(time_);
     packet.setCurrentLocation(module);
     packet.updateTraceReadTime(module, time_);
+
+    auto it = latency_read_triggers.find(module);
+    if (it != latency_read_triggers.end()) {
+      // For each latency trace triggered by this read:
+      for (auto & trigger : it->second) {
+        // We store a trigger for the write-module of that latency trace,
+        // associated with the packet id, and the trace id and read timestamp.
+        // Multiple latency traces can end at the same module, which is why we
+        // push back instead of just setting a single entry
+        latency_write_triggers[trigger.write_module_name][id].push_back({trigger.trace_id, time_});
+      }
+    }
+    // No new trace updates;
+    return {};
+
   } else {
     packet.updateTraceWriteTime(module, time_);
+
+    std::vector<DebugDataManager::TraceData> trace_updates;
+
+    auto it = latency_write_triggers.find(module);
+    if (it != latency_write_triggers.end()) {
+      // And if any of those correspond to this particular packet
+      auto pack_it = it->second.find(id);
+      if (pack_it != it->second.end()) {
+        // Then for each of those triggers
+        for (auto & trigger : pack_it->second) {
+          // We update it's associated trace with the difference between the read
+          // time and the write time.
+          trace_updates.push_back({trigger.trace_id, time_ - trigger.read_time});
+        }
+        // Then we delete the set of triggers for this packet ID
+        it->second.erase(pack_it);
+        // We don't bother deleting the outer map entry, because if writes to this
+        // module have been part of any trace, they likely will be again, and there's
+        // no point in deleting the map if it's likely just going to be recreated
+        // again. On the other hand, once we've seen a particular packet id, we don't
+        // expect to ever see it again.
+      }
+    }
+    return trace_updates;
   }
 }
 
