@@ -149,12 +149,32 @@ const std::string& PFPObject::module_name() const {
   return module_name_;
 }
 
+const std::string& PFPObject::fully_qualified_module_name() const {
+  static std::string name = "";
+
+  if (name == "") {
+    std::stringstream ss;
+    bool first = true;
+    for (const auto & s : ModuleHierarchy()) {
+      if (!first) {
+        ss << '.';
+      } else {
+        first = false;
+      }
+      ss << s;
+    }
+    name = ss.str();
+  }
+
+  return name;
+}
+
 PFPObject* PFPObject::GetParent() {
     return parent_;
 }
 
 
-std::vector<std::string> PFPObject::ModuleHierarchy() {
+std::vector<std::string> PFPObject::ModuleHierarchy() const {
   std::vector<std::string> hierarchy;
   hierarchy.push_back(module_name());
   std::string name = module_name();
