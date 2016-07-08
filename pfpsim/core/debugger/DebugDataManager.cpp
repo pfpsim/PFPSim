@@ -80,7 +80,6 @@ int DebugDataManager::addCounterTrace(const std::string & name) {
 
 int DebugDataManager::addLatencyTrace(const std::string & from_module_name,
                                       const std::string & to_module_name) {
-
   std::lock_guard<std::mutex> guard(mutex_);
 
   int id = trace_id++;
@@ -214,7 +213,8 @@ DebugDataManager::updatePacket(int id,
         // associated with the packet id, and the trace id and read timestamp.
         // Multiple latency traces can end at the same module, which is why we
         // push back instead of just setting a single entry
-        latency_write_triggers[trigger.write_module_name][id].push_back({trigger.trace_id, time_});
+        latency_write_triggers[trigger.write_module_name][id].push_back(
+            {trigger.trace_id, time_});
       }
     }
     // No new trace updates;
@@ -235,17 +235,18 @@ DebugDataManager::updatePacket(int id,
         if (pack_it != it->second.end()) {
           // Then for each of those triggers
           for (auto & trigger : pack_it->second) {
-            // We update it's associated trace with the difference between the read
-            // time and the write time.
-            trace_updates.push_back({trigger.trace_id, time_ - trigger.read_time});
+            // We update it's associated trace with the difference between the
+            // read time and the write time.
+            trace_updates.push_back({trigger.trace_id,
+                                     time_ - trigger.read_time});
           }
           // Then we delete the set of triggers for this packet ID
           it->second.erase(pack_it);
-          // We don't bother deleting the outer map entry, because if writes to this
-          // module have been part of any trace, they likely will be again, and there's
-          // no point in deleting the map if it's likely just going to be recreated
-          // again. On the other hand, once we've seen a particular packet id, we don't
-          // expect to ever see it again.
+          // We don't bother deleting the outer map entry, because if writes
+          // to this module have been part of any trace, they likely will be
+          // again, and there's no point in deleting the map if it's likely
+          // just going to be recreated again. On the other hand, once we've
+          // seen a particular packet id, we don't expect to ever see it again.
         }
       }
     }
@@ -257,9 +258,10 @@ DebugDataManager::updatePacket(int id,
       if (it != throughput_triggers.end()) {
         double & last_time = it->second.last_time;
         if (last_time >= 0) {
-          // Divide time delta by 1e9 to get time in seconds, then take the reciprocal
-          // to get packets per second
-          trace_updates.push_back({it->second.trace_id, (1000*1000*1000)/(time_ - last_time)});
+          // Divide time delta by 1e9 to get time in seconds, then take the
+          // reciprocal to get packets per second
+          trace_updates.push_back({it->second.trace_id,
+                                   (1000*1000*1000)/(time_ - last_time)});
         }
         last_time = time_;
       }

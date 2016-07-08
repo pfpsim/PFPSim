@@ -45,7 +45,7 @@ PFPObject::PFPObject(const std::string& module_name,
           GlobalConfigPath(CONFIGROOT),
           dicp_enabled(enable_dicp),
           module_name_(module_name),
-          fully_qualified_module_name_(""), // Built and set lazily
+          fully_qualified_module_name_(""),  // Built and set lazily
           parent_(parent) {
 //  cout<<module_name_<<" BaseConfigFile is:"<<BaseConfigFile<<endl;
 //  cout<<module_name_<<" InstanceConfigFile is:"<<InstanceConfigFile<<endl;
@@ -151,7 +151,6 @@ const std::string& PFPObject::module_name() const {
 }
 
 const std::string& PFPObject::fully_qualified_module_name() const {
-
   if (fully_qualified_module_name_ == "") {
     std::stringstream ss;
     bool first = true;

@@ -142,10 +142,14 @@ class DebugDataManager {
    * @param di     The DebugObject representing this packet.
    * @param module Name of module the packet is currently in.
    * @param time_  Time of update.
-   * @param read   Indicates whether the update is for a read or a write. True = read, False = write.
+   * @param read   Indicates whether the update is for a read or a write.
+   *               True = read, False = write.
    */
-  std::vector<TraceData> updatePacket(int id, std::shared_ptr<const DebugInfo> di,
-                    std::string module, double time_, bool read);
+  std::vector<TraceData> updatePacket(int id,
+                                      std::shared_ptr<const DebugInfo> di,
+                                      std::string module,
+                                      double time_,
+                                      bool read);
 
   /**
    * Remove a packet.
