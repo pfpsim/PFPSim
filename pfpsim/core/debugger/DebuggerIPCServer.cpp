@@ -768,32 +768,36 @@ void DebuggerIPCServer::handleGetTableEntries() {
 
 void
 DebuggerIPCServer::handleStartTracing(PFPSimDebugger::StartTracingMsg & msg) {
+  int id;
   switch (msg.type()) {
     case PFPSimDebugger::StartTracingMsg_Type_COUNTER:
     {
       std::string counter_name = msg.name();
-      int id = data_manager->addCounterTrace(counter_name);
-      if (id < 0) {
-        sendRequestFailed();
-      } else {
-        StartTracingStatusMessage response(id);
-        send(&response);
-      }
+      id = data_manager->addCounterTrace(counter_name);
+      break;
     }
     case PFPSimDebugger::StartTracingMsg_Type_LATENCY:
     {
       std::string from_module = msg.name();
       std::string to_module   = msg.end_name();
-      int id = data_manager->addLatencyTrace(from_module, to_module);
-      if (id < 0) {
-        sendRequestFailed();
-      } else {
-        StartTracingStatusMessage response(id);
-        send(&response);
-      }
+      id = data_manager->addLatencyTrace(from_module, to_module);
+      break;
     }
+    case PFPSimDebugger::StartTracingMsg_Type_THROUGHPUT:
+    {
+      std::string module = msg.name();
+      id = data_manager->addThroughputTrace(module);
+      break;
+    }
+    default:
+      break;
+  }
 
-    default: break;
+  if (id < 0) {
+    sendRequestFailed();
+  } else {
+    StartTracingStatusMessage response(id);
+    send(&response);
   }
 }
 

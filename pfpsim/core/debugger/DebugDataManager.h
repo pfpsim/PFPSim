@@ -329,6 +329,12 @@ class DebugDataManager {
            std::map<int,
                     std::vector<LatencyWriteTrigger>>> latency_write_triggers;
 
+  struct ThroughputTrigger {
+    int trace_id;
+    double last_time;
+  };
+  std::map<std::string, ThroughputTrigger> throughput_triggers;
+
   //! Mutex to make sure only one thread access the variables
   //! of this class at a time.
   std::mutex mutex_;

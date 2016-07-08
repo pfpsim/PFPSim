@@ -91,8 +91,11 @@ int DebugDataManager::addLatencyTrace(const std::string & from_module_name,
 }
 
 int DebugDataManager::addThroughputTrace(const std::string & module_name) {
-  int id = -1;
+  std::lock_guard<std::mutex> guard(mutex_);
 
+  int id = trace_id++;
+
+  throughput_triggers[module_name] = {id, -1};
 
   return id;
 }
@@ -222,26 +225,46 @@ DebugDataManager::updatePacket(int id,
 
     std::vector<DebugDataManager::TraceData> trace_updates;
 
-    auto it = latency_write_triggers.find(module);
-    if (it != latency_write_triggers.end()) {
-      // And if any of those correspond to this particular packet
-      auto pack_it = it->second.find(id);
-      if (pack_it != it->second.end()) {
-        // Then for each of those triggers
-        for (auto & trigger : pack_it->second) {
-          // We update it's associated trace with the difference between the read
-          // time and the write time.
-          trace_updates.push_back({trigger.trace_id, time_ - trigger.read_time});
+    // Latency Updates
+    // TODO(gordon) factor out into function
+    {
+      auto it = latency_write_triggers.find(module);
+      if (it != latency_write_triggers.end()) {
+        // And if any of those correspond to this particular packet
+        auto pack_it = it->second.find(id);
+        if (pack_it != it->second.end()) {
+          // Then for each of those triggers
+          for (auto & trigger : pack_it->second) {
+            // We update it's associated trace with the difference between the read
+            // time and the write time.
+            trace_updates.push_back({trigger.trace_id, time_ - trigger.read_time});
+          }
+          // Then we delete the set of triggers for this packet ID
+          it->second.erase(pack_it);
+          // We don't bother deleting the outer map entry, because if writes to this
+          // module have been part of any trace, they likely will be again, and there's
+          // no point in deleting the map if it's likely just going to be recreated
+          // again. On the other hand, once we've seen a particular packet id, we don't
+          // expect to ever see it again.
         }
-        // Then we delete the set of triggers for this packet ID
-        it->second.erase(pack_it);
-        // We don't bother deleting the outer map entry, because if writes to this
-        // module have been part of any trace, they likely will be again, and there's
-        // no point in deleting the map if it's likely just going to be recreated
-        // again. On the other hand, once we've seen a particular packet id, we don't
-        // expect to ever see it again.
       }
     }
+
+    // Throughput updates
+    // TODO(gordon) factor out into function
+    {
+      auto it = throughput_triggers.find(module);
+      if (it != throughput_triggers.end()) {
+        double & last_time = it->second.last_time;
+        if (last_time >= 0) {
+          // Divide time delta by 1e9 to get time in seconds, then take the reciprocal
+          // to get packets per second
+          trace_updates.push_back({it->second.trace_id, (1000*1000*1000)/(time_ - last_time)});
+        }
+        last_time = time_;
+      }
+    }
+
     return trace_updates;
   }
 }
