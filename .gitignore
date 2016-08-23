@@ -16,4 +16,6 @@ Makefile
 *Targets.cmake
 _CPack_Packages/
 .deb
-doc/
+doc/pfp-p4/pfp-p4-prefix/
+pfpsim/core/config.h
+pfp-p4/pfp-p4-prefix/

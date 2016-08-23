@@ -253,6 +253,11 @@ class ParsedPacketValueMessage: public DebuggerMessage {
       const std::vector<DebugInfo::Header> & headers);
 };
 
+class StartTracingStatusMessage: public DebuggerMessage {
+ public:
+  explicit StartTracingStatusMessage(int id);
+};
+
 };  // namespace db
 };  // namespace core
 };  // namespace pfp

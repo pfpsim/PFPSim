@@ -54,6 +54,11 @@ message DebugMsg {
 
     GetPacketField = 47;
     PacketFieldValue = 48;
+
+    StartTracing = 49;
+    StartTracingStatus = 50;
+
+    TracingUpdate = 51;
   }
 
   required Type type = 1;
@@ -303,7 +308,6 @@ message RawPacketValueMsg {
   optional bytes value = 1;
 }
 
-
 message GetPacketFieldMsg {
   optional int32 id = 1;
   optional string field_name = 2;
@@ -312,3 +316,27 @@ message GetPacketFieldMsg {
 message PacketFieldValueMsg {
   optional bytes value = 1;
 }
+
+message StartTracingMsg {
+  enum Type {
+    LATENCY = 1;
+    THROUGHPUT = 2;
+    COUNTER = 3;
+  }
+
+  optional Type type       = 1;
+  optional string name     = 2;
+  optional string end_name = 3;
+}
+
+message StartTracingStatusMsg {
+  optional int32 id = 1;
+}
+
+message TracingUpdateMsg {
+  optional int32 id = 1;
+  optional uint64 timestamp = 2;
+  optional double float_value = 3;
+  optional int64 int_value = 4;
+}
+

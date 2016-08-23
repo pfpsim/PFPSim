@@ -43,7 +43,8 @@
 #      +y --> don't ignore category y
 #      Separate each by a comma with no space
 #      Example: -whitespace,+whitespace/braces  --> ignores all 'whitespace' errors except the 'whitespace/braces' errors.
-filters="-runtime/references,-build/include_subdir,-build/c++11"
+# TODO(gordon) Technically we should not need to remove 'build/include' but in v1.3.0 of cpplint it seems to cause false-positives
+filters="-runtime/references,-build/include_subdir,-build/include,-build/c++11"
 
 # Root Directory:  Used to determine appropriate header guards
 #          The path must be relative to the location of the directory containing the .git file

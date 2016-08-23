@@ -45,6 +45,7 @@ PFPObject::PFPObject(const std::string& module_name,
           GlobalConfigPath(CONFIGROOT),
           dicp_enabled(enable_dicp),
           module_name_(module_name),
+          fully_qualified_module_name_(""),  // Built and set lazily
           parent_(parent) {
 //  cout<<module_name_<<" BaseConfigFile is:"<<BaseConfigFile<<endl;
 //  cout<<module_name_<<" InstanceConfigFile is:"<<InstanceConfigFile<<endl;
@@ -149,12 +150,34 @@ const std::string& PFPObject::module_name() const {
   return module_name_;
 }
 
+const std::string& PFPObject::fully_qualified_module_name() const {
+  if (fully_qualified_module_name_ == "") {
+    std::stringstream ss;
+    bool first = true;
+    auto hierarchy = ModuleHierarchy();
+    auto it  = hierarchy.rbegin();
+    auto end = hierarchy.rend();
+    ++it;  // skip 'top'
+    for (; it != end; ++it) {
+      if (!first) {
+        ss << '.';
+      } else {
+        first = false;
+      }
+      ss << *it;
+    }
+    fully_qualified_module_name_ = ss.str();
+  }
+
+  return fully_qualified_module_name_;
+}
+
 PFPObject* PFPObject::GetParent() {
     return parent_;
 }
 
 
-std::vector<std::string> PFPObject::ModuleHierarchy() {
+std::vector<std::string> PFPObject::ModuleHierarchy() const {
   std::vector<std::string> hierarchy;
   hierarchy.push_back(module_name());
   std::string name = module_name();

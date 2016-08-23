@@ -38,8 +38,6 @@
 
 #ifndef CORE_DEBUGGER_DEBUGGERIPCSERVER_H_
 #define CORE_DEBUGGER_DEBUGGERIPCSERVER_H_
-#include <nanomsg/reqrep.h>
-#include <nanomsg/nn.h>
 #include <string>
 #include <iostream>
 #include <thread>
@@ -142,9 +140,17 @@ class DebuggerIPCServer {
    */
   void registerCP(CPDebuggerInterface *cp_debug_if);
 
+  void updateTrace(int id, double value);
+
  private:
   //! socket which binds to ipc url
   int socket;
+  int socket_eid;
+
+  //! Socket for publishing trace updates
+  int trace_socket;
+  int trace_socket_eid;
+
   //! thread which services requests from debugger
   std::thread debug_req_thread;
   //! Indicates when the server thread should terminate
@@ -240,6 +246,7 @@ class DebuggerIPCServer {
   void handleGetRawPacket(int id);
   void handleGetPacketField(int id, std::string field_name);
 
+  void handleStartTracing(PFPSimDebugger::StartTracingMsg & msg);
   /**
    * Send pfpdb a generic reply so that it may regain control.
    */

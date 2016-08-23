@@ -118,12 +118,13 @@ class PFPObject {
   pfp::core::ConfigurationParameterNode
   GetParameterfromParent(std::string param, PFPObject* parent);
 
-  std::vector<std::string> ModuleHierarchy();
+  std::vector<std::string> ModuleHierarchy() const;
   /* ----- DICP ----- */
   const bool dicp_enabled;
 
   /* --- Module ---- */
   const std::string& module_name() const;
+  const std::string& fully_qualified_module_name() const;
   PFPObject* GetParent();
 
   /* --- Observers --- */
@@ -223,7 +224,7 @@ class PFPObject {
         double sim_time) {
     for (auto& each_observer : observers_) {
       auto func = std::bind(&PFPObserver::data_written, each_observer,
-            module_name(), data, sim_time);
+            fully_qualified_module_name(), data, sim_time);
       events_.push(func);
     }
   }
@@ -237,7 +238,7 @@ class PFPObject {
         double sim_time) {
     for (auto& each_observer : observers_) {
       auto func = std::bind(&PFPObserver::data_read, each_observer,
-            module_name(), data, sim_time);
+            fully_qualified_module_name(), data, sim_time);
       events_.push(func);
     }
   }
@@ -251,7 +252,7 @@ class PFPObject {
         std::string& drop_reason, double sim_time) {
     for (auto& each_observer : observers_) {
       auto func = std::bind(&PFPObserver::data_dropped, each_observer,
-            module_name(), data, drop_reason, sim_time);
+            fully_qualified_module_name(), data, drop_reason, sim_time);
       events_.push(func);
     }
   }
@@ -270,6 +271,7 @@ class PFPObject {
  protected:
   const std::string GlobalConfigPath;
   const std::string module_name_;
+  mutable std::string fully_qualified_module_name_;
   PFPObject* parent_;                /*!< Parent of this PFPObject */
   std::map<std::string, std::string> configMap;  /*!< Configuration Map used >*/
   //! Store counters and values

@@ -29,14 +29,24 @@
  */
 
 #include "DebuggerIPCServer.h"
+
+#include <nanomsg/reqrep.h>
+#include <nanomsg/pubsub.h>
+#include <nanomsg/nn.h>
+
 #include <signal.h>
 #include <string>
 #include <vector>
 #include <map>
 #include <tuple>
+#include <iostream>
+#include <iomanip>
+#include <sstream>
+
 #include "Breakpoint.h"
 #include "Watchpoint.h"
 #include "DebuggerPacket.h"
+
 
 namespace pfp {
 namespace core {
@@ -44,14 +54,24 @@ namespace db {
 
 DebuggerIPCServer::DebuggerIPCServer(std::string url, DebugDataManager *dm)
       : data_manager(dm), reply_message(NULL) {
-  socket = nn_socket(AF_SP, NN_REP);
-  nn_bind(socket, url.c_str());
+  socket     = nn_socket(AF_SP, NN_REP);
+  socket_eid = nn_bind(socket, url.c_str());
+
+  trace_socket     = nn_socket(AF_SP, NN_PUB);
+  // TODO(gordon) Don't hardcore URL. For each model, create a uniquely
+  // named temporary directory and put standard named sockets inside that
+  // e.g. /tmp/pfpdb-F0OB4Rxyz/trace.ipc
+  //      /tmp/pfpdb-F0OB4Rxzy/reqrep.ipc
+  // TODO(gordon) don't need to create this trace socket unless traces are
+  // actually requested (could do it lazily)
+  trace_socket_eid = nn_bind(trace_socket, "ipc:///tmp/pfpdb-trace");
 }
 
 DebuggerIPCServer::~DebuggerIPCServer() {
   delete ulock;
   kill_thread = true;
-  nn_shutdown(socket, 0);
+  nn_shutdown(socket, socket_eid);
+  nn_shutdown(trace_socket, trace_socket_eid);
   debug_req_thread.join();
 }
 
@@ -102,6 +122,27 @@ void DebuggerIPCServer::setReplyMessage(DebuggerMessage *message) {
 
 void DebuggerIPCServer::registerCP(CPDebuggerInterface *cp_debug_if) {
   control_plane = cp_debug_if;
+}
+
+void DebuggerIPCServer::updateTrace(int id, double value) {
+  PFPSimDebugger::TracingUpdateMsg msg;
+  msg.set_id(id);
+  msg.set_timestamp(data_manager->getSimulationTime());
+  msg.set_float_value(value);
+
+  constexpr static size_t BUF_SIZE = 128;
+  constexpr static size_t TOPIC_SIZE = 5;  // strlen("PFPDB")
+  // TODO(gordon) don't hardcode the topic name
+  char buf[BUF_SIZE] = "PFPDB";
+  buf[TOPIC_SIZE]     = (id >> 8) & 0xff;
+  buf[TOPIC_SIZE + 1] =     id    & 0xff;
+
+  msg.SerializeToArray(buf + TOPIC_SIZE + 2, BUF_SIZE - (TOPIC_SIZE + 2));
+
+  auto msg_size = TOPIC_SIZE + 2 + msg.ByteSize();
+
+  int bytes_sent = nn_send(trace_socket, buf, msg_size, 0);
+  assert(bytes_sent == msg_size);
 }
 
 void DebuggerIPCServer::send(DebuggerMessage *message) {
@@ -326,6 +367,12 @@ void DebuggerIPCServer::parseRequest(PFPSimDebugger::DebugMsg *request) {
       msg.ParseFromString(request->message());
       handleGetParsedPacket(msg.id());
       break;
+    }
+    case PFPSimDebugger::DebugMsg_Type_StartTracing:
+    {
+      PFPSimDebugger::StartTracingMsg msg;
+      msg.ParseFromString(request->message());
+      handleStartTracing(msg);
     }
     default: {
       sendRequestFailed();
@@ -717,6 +764,41 @@ void DebuggerIPCServer::handleGetTableEntries() {
   TableEntriesMessage *message = new TableEntriesMessage(entries);
   send(message);
   delete message;
+}
+
+void
+DebuggerIPCServer::handleStartTracing(PFPSimDebugger::StartTracingMsg & msg) {
+  int id;
+  switch (msg.type()) {
+    case PFPSimDebugger::StartTracingMsg_Type_COUNTER:
+    {
+      std::string counter_name = msg.name();
+      id = data_manager->addCounterTrace(counter_name);
+      break;
+    }
+    case PFPSimDebugger::StartTracingMsg_Type_LATENCY:
+    {
+      std::string from_module = msg.name();
+      std::string to_module   = msg.end_name();
+      id = data_manager->addLatencyTrace(from_module, to_module);
+      break;
+    }
+    case PFPSimDebugger::StartTracingMsg_Type_THROUGHPUT:
+    {
+      std::string module = msg.name();
+      id = data_manager->addThroughputTrace(module);
+      break;
+    }
+    default:
+      break;
+  }
+
+  if (id < 0) {
+    sendRequestFailed();
+  } else {
+    StartTracingStatusMessage response(id);
+    send(&response);
+  }
 }
 
 void DebuggerIPCServer::sendGenericReply() {
