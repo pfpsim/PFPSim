@@ -47,6 +47,7 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <sstream>
 #include "systemc.h"
 
 #define INPUT_FILE_ERROR -7
