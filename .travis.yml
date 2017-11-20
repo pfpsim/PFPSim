@@ -4,9 +4,92 @@ language: cpp
 
 matrix:
   include:
-    - env: COMPILER=g++-4.8
-    - env: COMPILER=g++-5
-    #- env: COMPILER=clang++-3.5
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-4.8
+      env:
+         - MATRIX_EVAL="CC=gcc-4.8 && CXX=g++-4.8"
+
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-4.9
+      env:
+         - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
+
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-5
+      env:
+         - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
+
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-6
+      env:
+        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6"
+
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+      env:
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+    
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-precise-3.5
+          packages:
+            - clang-3.5
+      env:
+        - MATRIX_EVAL="CC=clang-3.5 && CXX=clang++-3.5"
+            
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-precise-3.6
+          packages:
+            - clang-3.6
+      env:
+        - MATRIX_EVAL="CC=clang-3.6 && CXX=clang++-3.6"
+    
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-precise-3.7
+          packages:
+            - clang-3.7
+      env:
+        - MATRIX_EVAL="CC=clang-3.7 && CXX=clang++-3.7"
+#  include:
+#    - env: COMPILER=g++-4.8
+#    - env: COMPILER=g++-5
+#    - env: COMPILER=clang++-3.5
 
 # N.B. - The P4 cmake configure step under Travis will install all of its dependencies,
 # some of which overlap with our dependencies. Notably:
@@ -14,19 +97,22 @@ matrix:
 #   - nnpy
 #   - libpcap
 before_install:
+  - eval "${MATRIX_EVAL}"
   # Before anything else, lint it to make sure everything's good
+  - echo $CC
+  - echo $CXX
   - sudo pip install cpplint
   - .travis/run_lint.sh
   # Copy pasted from https://github.com/jdm64/saphyr/blob/8808c34dec4f94f86a8dd6a832037cba4ba2d88a/.travis.yml
-  - sudo cp /etc/apt/sources.list /etc/apt/sources.list.d/trusty.list
-  - sudo sed -i 's/precise/trusty/g' /etc/apt/sources.list.d/trusty.list
-  - if [[ $COMPILER == g++-5       ]]; then sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y; fi
+  #- sudo cp /etc/apt/sources.list /etc/apt/sources.list.d/trusty.list
+  #- sudo sed -i 's/precise/trusty/g' /etc/apt/sources.list.d/trusty.list
+  #- if [[ $COMPILER == g++-5       ]]; then sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y; fi
   - sudo apt-get update -qq -y
-  - if [[ $COMPILER == g++-4.8     ]]; then sudo apt-get install -q -y g++-4.8;     fi
-  - if [[ $COMPILER == g++-5       ]]; then sudo apt-get install -q -y g++-5;       fi
-  - if [[ $COMPILER == clang++-3.5 ]]; then sudo apt-get install -q -y clang++-3.5; fi
+  #- if [[ $COMPILER == g++-4.8     ]]; then sudo apt-get install -q -y g++-4.8;     fi
+  #- if [[ $COMPILER == g++-5       ]]; then sudo apt-get install -q -y g++-5;       fi
+  #- if [[ $COMPILER == clang++-3.5 ]]; then sudo apt-get install -q -y clang++-3.5; fi
   - sudo apt-get install -qq -y --force-yes flexc++ bisonc++ protobuf-compiler libprotobuf-dev python-setuptools
-  - export CXX=$COMPILER
+  #- export CXX=$COMPILER
   #
   # Install SystemC
   - wget http://www.accellera.org/images/downloads/standards/systemc/systemc-2.3.1.tgz
