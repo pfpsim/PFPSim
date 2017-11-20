@@ -6,7 +6,7 @@ matrix:
   include:
     - env: COMPILER=g++-4.8
     - env: COMPILER=g++-5
-    - env: COMPILER=clang++-3.5
+    #- env: COMPILER=clang++-3.5
 
 # N.B. - The P4 cmake configure step under Travis will install all of its dependencies,
 # some of which overlap with our dependencies. Notably:
