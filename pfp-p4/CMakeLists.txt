@@ -83,7 +83,7 @@ ExternalProject_Add(pfp-p4    # Name for custom target
   # URL of git repo
   GIT_REPOSITORY "https://github.com/pfpsim/p4-behavioral-model.git"
   # Git branch name, commit id or tag
-  GIT_TAG "pfp-compiler-test"
+  GIT_TAG "pfp"
   # Should certificate for https be checked
 
  #--Update/Patch step----------
